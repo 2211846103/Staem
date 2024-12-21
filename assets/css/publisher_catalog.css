@@ -5,7 +5,3 @@
 #game-statistics-container {
     height: 65%;
 }
-
-#game-statistics-container.card {
-    width: 1fr;
-}
