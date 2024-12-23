@@ -46,27 +46,30 @@
             <main class="row h-100">
               <div class="p-5 pe-2 col-3">
                 <ul class="list-group list-group-flush border rounded h-100">
-                  <li class="list-group-item active">Account Settings</li>
-                  <li class="list-group-item list-group-item-action">Security</li>
+                  <li class="list-group-item list-group-item-action">Account Settings</li>
+                  <li class="list-group-item active">Security</li>
                   <li class="list-group-item list-group-item-action rounded-0">Transactions</li>
                 </ul>
               </div>
               <div class="p-5 ps-2 col-9">
                 <div class="card h-100 border">
                   <div class="card-body d-flex flex-column align-items-center">
-                    <h1 class="text-center mb-4">Profile Settings</h1>
+                    <h1 class="text-center mb-4">Change Password</h1>
                     <form class="w-50">
                       <div class="mb-3">
-                          <label for="username" class="form-label">Username</label>
-                          <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                          <label for="currentPassword" class="form-label">Current Password</label>
+                          <input type="password" class="form-control" id="currentPassword" placeholder="Enter your current password" required>
                       </div>
                       <div class="mb-3">
-                          <label for="email" class="form-label">Email Address</label>
-                          <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                          <label for="newPassword" class="form-label">New Password</label>
+                          <input type="password" class="form-control" id="newPassword" placeholder="Enter a new password" required>
                       </div>
-                      <div class="d-flex">
-                        <button type="submit" class="btn btn-primary me-auto">Save Changes</button>
-                        <button class="btn btn-outline-success">Become a Publisher</button>
+                      <div class="mb-3">
+                          <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your new password" required>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Change Password</button>
                       </div>
                     </form>
                   </div>
