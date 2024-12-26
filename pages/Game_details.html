@@ -87,21 +87,24 @@
                 
                   <form class="w-50">
                     <label class="form-label">Write a Review</label>
-                    <div class="d-flex">
+                    <div class="d-flex mb-2">
                       <textarea type="text" class="form-control me-4"></textarea>
                       <div class="d-flex align-items-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </div>
                     </div>
+
+                      <input
+                        class="rating bg-transparent"
+                        max="5"
+                        oninput="this.style.setProperty('--value', this.value)"
+                        step="0.1"
+                        type="range"
+                        value="1">
+
                   </form>
                 </div>
-                <div class="rating">
-                  <input type="radio" name="rate" id="rate" value="5"><label for="rate">☆</label>
-                  <input type="radio" name="rate" id="rate" value="4"><label for="rate">☆</label>
-                  <input type="radio" name="rate" id="rate" value="3"><label for="rate">☆</label>
-                  <input type="radio" name="rate" id="rate" value="2"><label for="rate">☆</label>
-                  <input type="radio" name="rate" id="rate" value="1"><label for="rate">☆</label>
-                 </div>
+                
                 <div class="list-group mb-5">
                     <!-- Example comments -->
                     <div class="list-group-item">
