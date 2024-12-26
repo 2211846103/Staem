@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -23,7 +27,7 @@
                 <div class="card w-50 shadow-sm bg-body-secondary">
                   <div class="card-body bg-body-secondary">
                     <h2 class="text-center mb-4">Sign Up</h2>
-                    <form>
+                    <form action="/php/signup">
                       <!-- Username -->
                       <div class="mb-3">
                         <label for="name" class="form-label">Username</label>
