@@ -1,0 +1,18 @@
+.comments-list {
+    
+    flex-direction: column;
+    gap: 20px;
+}
+.comment {
+    padding: 20px;
+    border-bottom: 1px solid #cdd6f4;
+    border-radius: 8px;
+} 
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.comment-header span {
+    font-weight: bold;
+}
