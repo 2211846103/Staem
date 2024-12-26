@@ -17,7 +17,7 @@
         <!--Main Container-->
         <div class="container-fluid vh-100" style="margin: 0; padding: 0;">
             <!--Navigation Bar (Remove if Unnecessary)-->
-            <nav class="navbar navbar-expand bg-body-secondary">
+            <nav class="navbar navbar-expand bg-body-secondary fixed-top">
                 <div class="container-fluid px-5">
                     <a href="#" class="navbar-brand mb-0 h1 fs-2">Staem</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,96 +46,151 @@
 
             <!-- Main Content -->
             <main>
+                <div class="card text-bg-dark">
+                    <img src="https://i.pinimg.com/1200x/be/17/a2/be17a2ebffe3fe9aab349ef709790706.jpg" class="card-img" style="height: 25rem; filter: blur(5px); -webkit-filter: blur(5px);">
+                    <div class="card-img-overlay" style="margin-top:250px ;">
+                      <h5 class="card-title fw-bolder fs-4" style="color: aliceblue;">Game Name</h5>
+                      <p class="card-text fw-bolder" style="color: aliceblue;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <p class="card-text" style="color: aliceblue;"><small>Last updated 3 mins ago</small></p>
+                    </div>
+                  </div>
                   <!-- Hero Section -->
                   <section class="py-5 text-center">
                     <div class="container">
-                        <h1 class="display-4">Epic Gaming Starts Here</h1>
-                        <p class="lead">Browse top games, your next adventure is just one click away.</p>
+                        <h1 class="display-4 fw-bolder">Epic Gaming Starts Here</h1>
+                        <p class="lead fw-bolder">Browse top games, your next adventure is just one click away.</p>
                     </div>
                 </section>
 
                 <!-- Featured Games Section -->
                 <section class="py-5">
-                    <div class="container text-center">
-                        <h2>Most Popular Games</h2>
-                        <div class="row">
+                    <div class="container text-center vh-100">
+                        <p class="h1 fw-bolder text-primary text-start">Most Popular Games</p>
+                        <div class="row h-50 row-cols-4">
                             <!-- Game Card 1 -->
-                            <div class="col-md-4 mb-4">
-                                <div class="card border mb-2 style="width: 8rem">
-                                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/aGhopp3MHppi7kooGE2Dtt8C.png" class="card-img-top" alt="Game 1" style="height: 15rem;">
+                            <div class="col h-100 mb-4">
+                                <div class="card border h-100 mb-2" >
+                                    
+                                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/aGhopp3MHppi7kooGE2Dtt8C.png" class="card-img-top h-50">
                                     <div class="card-body">
-                                        <h5 class="card-title">Game Title 1</h5>
-                                        <p class="card-text">Description of Game 1</p>
-                                        <!--  <button class="btn btn-primary">Add to Cart</button> --> 
-                                        <p class="mt-2">Rating: 5/5</p>
+                                        <h2 class="card-title fw-bolder mt-2">Game Title</h2>
+                                        <p class="fw-bolder fs-3 ms-3 mt-2">60$</p>
+                                        <button class="btn btn-primary btn-lg">Add to Cart</button>
+                                        <p class="fw-bolder mt-4">Rating: 5/5</p>
                                     </div>
+                                    
                                 </div>
                             </div>
+                
 
                             <!-- Game Card 2 -->
-                            <div class="col-md-4 mb-4">
-                                <div class="card border mb-3 style="width: 8rem">
-                                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202210/0706/EVWyZD63pahuh95eKloFaJuC.png" class="card-img-top" alt="Game 2" style="height: 15rem;">
+                            <div class="col h-100 mb-4">
+                                <div class="card border h-100 mb-3">
+                                 
+                                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202210/0706/EVWyZD63pahuh95eKloFaJuC.png" class="card-img-top h-50" alt="Game 2">
                                     <div class="card-body">
-                                        <h5 class="card-title">Game Title 2</h5>
-                                        <p class="card-text">Description of Game 2</p>
-                                        <!--  <button class="btn btn-primary">Add to Cart</button> --> 
-                                        <p class="mt-2">Rating: 4.3/5</p>
+                                        <h2 class="card-title fw-bolder mt-2">Game Title</h2>
+                                        <p class="fw-bolder fs-3 ms-3 mt-2">60$</p>
+                                        <button class="btn btn-primary btn-lg">Add to Cart</button>
+                                        <p class="fw-bolder mt-4">Rating: 5/5</p>
                                     </div>
+                                   
                                 </div>
                             </div>
                               <!-- Game Card 3 -->
-                              <div class="col-md-4 mb-4">
-                                <div class="card border mb-3 style="width: 8rem">
-                                    <img src="https://i0.wp.com/highschool.latimes.com/wp-content/uploads/2021/09/league-of-legends.jpeg?fit=1607%2C895&ssl=1" class="card-img-top" alt="Game 2" style="height: 15rem;">
-
+                              <div class="col h-100 mb-4">
+                                <div class="card border h-100 mb-3">
+                                    <span role="button">
+                                    <img src="https://i0.wp.com/highschool.latimes.com/wp-content/uploads/2021/09/league-of-legends.jpeg" class="card-img-top h-50" alt="Game 2">
                                     <div class="card-body">
-                                        <h5 class="card-title">Game Title 2</h5>
-                                        <p class="card-text">Description of Game 2</p>
-                                        <!-- <!- <button class="btn btn-primary">Add to Cart</button> --> 
-                                        <p class="mt-2">Rating: 4.3/5</p>
+                                        <h2 class="card-title fw-bolder mt-2">Game Title</h2>
+                                        <p class="fw-bolder fs-3 ms-3 mt-2">60$</p>
+                                        <button class="btn btn-primary btn-lg">Add to Cart</button>
+                                        <p class="fw-bolder mt-4">Rating: 5/5</p>
                                     </div>
+                                </span>
                                 </div>
                             </div>
 
                               <!-- Game Card 4 -->
-                              <div class="col-md-4 mb-4 cursor-pointer">
-                                <div class="card border mb-3 style="width: 8rem">
-                                    <img src="https://www.zeldaspalace.com/images/botw/shots/shot65.png" class="card-img-top" alt="Game 2" style="height: 15rem;">
+                              <div class="col h-100 mb-4">
+                                <div class="card border h-100 mb-3">
+                                    <span role="button">
+                                    <img src="https://www.zeldaspalace.com/images/botw/shots/shot65.png" class="card-img-top h-50" alt="Game 2">
                                     <div class="card-body">
-                                        <h5 class="card-title">Game Title 2</h5>
-                                        <p class="card-text">Description of Game 2</p>
-                                        <!--  <button class="btn btn-primary">Add to Cart</button> --> 
-                                        <p class="mt-2">Rating: 4.3/5</p>
+                                        <h2 class="card-title fw-bolder mt-2">Game Title</h2>
+                                        <p class="fw-bolder fs-3 ms-3 mt-2">60$</p>
+                                        <button class="btn btn-primary btn-lg">Add to Cart</button>
+                                        <p class="fw-bolder mt-4">Rating: 5/5</p>
                                     </div>
+                                    </span>
                                 </div>
                             </div>
-                              <!-- Game Card 5 -->
-                              <div class="col-md-4 mb-4">
-                                <div class="card border mb-3 style="width: 8rem">
-                                    <img src="https://i.pinimg.com/1200x/2c/df/87/2cdf870b2971003ae764e341704d8165.jpg" class="img-fluid rounded-start" style=" height: 15rem;">
+
+
+                            <!-- Game Card 5 -->
+                            <div class="col h-100 mb-4">
+                                <div class="card border h-100 mb-3">
+                                    <span role="button">
+                                    <img src="https://www.zeldaspalace.com/images/botw/shots/shot65.png" class="card-img-top h-50" alt="Game 2">
                                     <div class="card-body">
-                                        <h5 class="card-title">Game Title 2</h5>
-                                        <p class="card-text">Description of Game 2</p>
-                                        <!--  <button class="btn btn-primary">Add to Cart</button> --> 
-                                        <p class="mt-2">Rating: 4.3/5</p>
+                                        <h2 class="card-title fw-bolder mt-2">Game Title</h2>
+                                        <p class="fw-bolder fs-3 ms-3 mt-2">60$</p>
+                                        <button class="btn btn-primary btn-lg">Add to Cart</button>
+                                        <p class="fw-bolder mt-4">Rating: 5/5</p>
                                     </div>
+                                    </span>
                                 </div>
                             </div>
 
 
                             <!-- Game Card 6 -->
-                            <div class="col-md-4 mb-4">
-                                <div class="card border mb-3 style="width: 18rem">
-                                    <img src="https://www.perfectly-nintendo.com/wp-content/uploads/2019/01/Rocket-League.jpg" class="card-img-top" alt="Game 3" style="height: 15rem;">
+                            <div class="col h-100 mb-4">
+                                <div class="card border h-100 mb-3">
+                                    <span role="button">
+                                    <img src="https://www.zeldaspalace.com/images/botw/shots/shot65.png" class="card-img-top h-50" alt="Game 2">
                                     <div class="card-body">
-                                        <h5 class="card-title">Game Title 3</h5>
-                                        <p class="card-text">Description of Game 3</p>
-                                        <!--  <button class="btn btn-primary">Add to Cart</button> --> 
-                                        <p class="mt-2">Rating: 4.7/5</p>
+                                        <h2 class="card-title fw-bolder mt-2">Game Title</h2>
+                                        <p class="fw-bolder fs-3 ms-3 mt-2">60$</p>
+                                        <button class="btn btn-primary btn-lg">Add to Cart</button>
+                                        <p class="fw-bolder mt-4">Rating: 5/5</p>
                                     </div>
+                                    </span>
                                 </div>
                             </div>
+
+
+                            <!-- Game Card 7 -->
+                            <div class="col h-100 mb-4">
+                                <div class="card border h-100 mb-3">
+                                    <span role="button">
+                                    <img src="" class="card-img-top h-50">
+                                    <div class="card-body">
+                                        <h2 class="card-title fw-bolder mt-2">Game Title</h2>
+                                        <p class="fw-bolder fs-3 ms-3 mt-2">60$</p>
+                                        <button class="btn btn-primary btn-lg">Add to Cart</button>
+                                        <p class="fw-bolder mt-4">Rating: 5/5</p>
+                                    </div>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <!-- Game Card 8 -->
+                            <div class="col h-100 mb-4">
+                                <div class="card border h-100 mb-3">
+                                    <span role="button">
+                                    <img src="https://i.pinimg.com/1200x/d0/c1/b5/d0c1b5f968652cff01403e826ab2f9d9.jpg" class="card-img-top h-50">
+                                    <div class="card-body">
+                                        <h2 class="card-title fw-bolder mt-2">Game Title</h2>
+                                        <p class="fw-bolder fs-3 ms-3 mt-2">60$</p>
+                                        <button class="btn btn-primary btn-lg">Add to Cart</button>
+                                        <p class="fw-bolder mt-4">Rating: 5/5</p>
+                                    </div>
+                                    </span>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </section>
