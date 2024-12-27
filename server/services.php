@@ -1,6 +1,2 @@
 <?php
-class CartService {
-    public static function addToCart($gameId) {
-
-    }
-}
+require_once("./database_access.php");
