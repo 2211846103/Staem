@@ -1,21 +1,22 @@
 <?php
-class DBHandler {
-    private static $servername = "localhost";
-    private static $username = "root";
-    private static $password = "Aq12wsaq1--11";
-    private static $conn;
+$config = include("./config.local.php");
 
-    public static function init() {
-        $conn = new mysqli(DBHandler::$servername, DBHandler::$username, DBHandler::$password);
+class DatabaseAccess {
+    private $conn;
+
+    public function __construct() {
+        global $config;
+
+        $conn = new mysqli($config["DB_HOST"], $config["DB_USER"], $config["DB_PASSWORD"], $config["DB_NAME"]);
         if ($conn->connect_error) {
             die("Invalid Access to the Database");
         }
     }
-    public static function execute($sql, $types, ...$inputs) {
-        $stmt = DBHandler::$conn->prepare($sql);
+    public function execute($sql, $types, ...$inputs) {
+        $stmt = $this->conn->prepare($sql);
         $stmt->execute($types, $inputs);
     }
-    public static function close() {
-        DBHandler::$conn->close();
+    public function close() {
+        $this->conn->close();
     }
 }
