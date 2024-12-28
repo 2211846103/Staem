@@ -22,9 +22,13 @@ class UserService {
             $credentials["username"], $credentials["password"]
         )[0];
 
+        session_start();
         $_SESSION["user_id"] = $result["id"];
 
         $dba->close();
+    }
+    public static function isLoggedIn() {
+        return session_status() == PHP_SESSION_ACTIVE;
     }
     public static function updateInfo($details) {
         $dba = new DatabaseAccess();
@@ -49,6 +53,7 @@ class UserService {
         $dba->close();
     }
     public static function logout() {
-        unset($_SESSION["user_id"]);
+        session_unset();
+        session_destroy();
     }
 }
