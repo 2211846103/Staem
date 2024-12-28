@@ -5,7 +5,7 @@ class UserService {
     public static function register($details) {
         $dba = new DatabaseAccess();
         
-        $dba->update(
+        $dba->preUpdate(
             "INSERT INTO users (username, email, password, is_publisher) VALUES (?, ?, ?, ?)",
             "sssi",
             $details["username"], $details["email"], $details["password"], intval(false)
@@ -16,7 +16,7 @@ class UserService {
     public static function login($credentials) {
         $dba = new DatabaseAccess();
 
-        $result = $dba->query(
+        $result = $dba->preQuery(
             "SELECT id FROM users WHERE username=? AND password=?",
             "ss",
             $credentials["username"], $credentials["password"]
@@ -29,7 +29,7 @@ class UserService {
     public static function updateInfo($details) {
         $dba = new DatabaseAccess();
 
-        $dba->update(
+        $dba->preUpdate(
             "UPDATE users SET username=?, email=? WHERE id=?",
             "ssi",
             $details["username"], $details["email"], $_SESSION["user_id"]
@@ -40,7 +40,7 @@ class UserService {
     public static function changePassword($passwordInfo) {
         $dba = new DatabaseAccess();
 
-        $dba->update(
+        $dba->preUpdate(
             "UPDATE users SET password=? WHERE id=? AND password=?",
             "sis",
             $passwordInfo["newPass"], $_SESSION["user_id"], $passwordInfo["currentPass"]
