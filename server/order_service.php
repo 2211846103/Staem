@@ -75,6 +75,13 @@ class CartService {
             CartService::addTransaction($game["id"], $game["price"], TransactionType::PURCHASE);
         }
 
+        $dba->preUpdate(
+            "DELETE FROM cart_items
+                WHERE user_id=?",
+            "i",
+            $_SESSION["user_id"]
+        );
+
         $dba->close();
     }
     public static function refundGame($gameId) {

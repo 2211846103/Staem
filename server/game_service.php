@@ -6,7 +6,10 @@ class GameService {
         $dba = new DatabaseAccess();
 
         $result = $dba->preQuery(
-            "SELECT * FROM games WHERE id=?",
+            "SELECT games.*, users.username
+                FROM games LEFT JOIN users
+                ON games.publisher_id=users.id
+                WHERE games.id=?",
             "i",
             $gameId
         )[0];
@@ -19,11 +22,11 @@ class GameService {
 
         $result = $dba->query(
             "SELECT games.*, COUNT(library_items.user_id) AS copies_sold 
-                  FROM games LEFT JOIN library_items 
-                  ON games.id=library_items.game_id
-                  GROUP BY games.id 
-                  ORDER BY copies_sold DESC 
-                  LIMIT 21"
+                FROM games LEFT JOIN library_items 
+                ON games.id=library_items.game_id
+                GROUP BY games.id 
+                ORDER BY copies_sold DESC 
+                LIMIT 21"
         );
 
         $dba->close();
