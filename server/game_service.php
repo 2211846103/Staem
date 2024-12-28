@@ -20,7 +20,7 @@ class GameService {
         $result = $dba->query(
             "SELECT games.*, COUNT(library_items.user_id) AS copies_sold 
                   FROM games LEFT JOIN library_items 
-                  ON games.id=library_items.game_id 
+                  ON games.id=library_items.game_id
                   GROUP BY games.id 
                   ORDER BY copies_sold DESC 
                   LIMIT 21"
@@ -100,7 +100,7 @@ class GameService {
         $dba->close();
         return $result;
     }
-    public static function getGamesByLibrary() {
+    public static function getLibrary() {
         $dba = new DatabaseAccess();
 
         $result = $dba->preQuery(
@@ -108,21 +108,6 @@ class GameService {
                 FROM games INNER JOIN library_items
                 ON games.id=library_items.game_id
                 WHERE library_items.user_id=?",
-            "i",
-            $_SESSION["user_id"]
-        );
-
-        $dba->close();
-        return $result;
-    }
-    public static function getGamesByCart() {
-        $dba = new DatabaseAccess();
-
-        $result = $dba->preQuery(
-            "SELECT games.*
-                FROM games INNER JOIN cart_items
-                ON games.id=cart_items.game_id
-                WHERE cart_items.user_id=?",
             "i",
             $_SESSION["user_id"]
         );
