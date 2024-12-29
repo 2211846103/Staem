@@ -1,3 +1,13 @@
+<?php
+require_once("../server/user_service.php");
+
+/*UserService::register([
+  'username' => "",
+  'email' => "",
+  'password' => ""
+]);*/
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -23,11 +33,11 @@
                 <div class="card w-50 shadow-sm bg-body-secondary">
                   <div class="card-body bg-body-secondary">
                     <h2 class="text-center mb-4">Sign Up</h2>
-                    <form>
+                    <form action="/signup.php" method="post" onsubmit="return register()">
                       <!-- Username -->
                       <div class="mb-3">                                                                        
                         <label for="name" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your Username" required>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your Username" required>
                       </div>
                       <!-- Email -->
                       <div class="mb-3">
@@ -56,5 +66,10 @@
 
         <!--Bootstrap Javascript-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <!--JQuery CDN-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <!--Custom Script-->
+        <script src="../assets/js/signup.js"></script>
     </body>
 </html>
