@@ -26,12 +26,15 @@ class UserService {
             "SELECT id FROM users WHERE username=? AND password=?",
             "ss",
             $credentials["username"], $credentials["password"]
-        )[0];
+        );
+
+        if (count($result) == 0) return false;
 
         session_start();
-        $_SESSION["user_id"] = $result["id"];
+        $_SESSION["user_id"] = $result[0]["id"];
 
         $dba->close();
+        return true;
     }
     public static function isLoggedIn() {
         return session_status() == PHP_SESSION_ACTIVE;
