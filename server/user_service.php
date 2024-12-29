@@ -3,15 +3,21 @@ include($_SERVER['DOCUMENT_ROOT'] . "/server/database_access.php");
 
 class UserService {
     public static function register($details) {
+        $success = true;
         $dba = new DatabaseAccess();
         
-        $dba->preUpdate(
-            "INSERT INTO users (username, email, password, is_publisher) VALUES (?, ?, ?, ?)",
-            "sssi",
-            $details["username"], $details["email"], $details["password"], intval(false)
-        );
+        try {
+            $dba->preUpdate(
+                "INSERT INTO users (username, email, password, is_publisher) VALUES (?, ?, ?, ?)",
+                "sssi",
+                $details["username"], $details["email"], $details["password"], intval(false)
+            );
+        } catch (Exception $e) {
+            $success = false;
+        }
 
         $dba->close();
+        return $success;
     }
     public static function login($credentials) {
         $dba = new DatabaseAccess();
