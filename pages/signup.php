@@ -1,11 +1,16 @@
 <?php
 require_once("../server/user_service.php");
 
-/*UserService::register([
-  'username' => "",
-  'email' => "",
-  'password' => ""
-]);*/
+$success = true;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $success = UserService::register([
+    'username' => $_POST["username"],
+    'email' => $_POST["email"],
+    'password' => $_POST["password"]
+  ]);
+
+  if ($success) header("Location: login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +38,10 @@ require_once("../server/user_service.php");
                 <div class="card w-50 shadow-sm bg-body-secondary">
                   <div class="card-body bg-body-secondary">
                     <h2 class="text-center mb-4">Sign Up</h2>
-                    <form action="/signup.php" method="post" onsubmit="return register()">
+                    <?php
+                    if (!$success) echo "<span class='text-danger'>Username or Email is Taken</span>";
+                    ?>
+                    <form action="signup.php" method="post">
                       <!-- Username -->
                       <div class="mb-3">                                                                        
                         <label for="name" class="form-label">Username</label>
