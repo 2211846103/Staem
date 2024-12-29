@@ -1,5 +1,5 @@
 <?php
-$config = include("./config.local.php");
+$config = include($_SERVER['DOCUMENT_ROOT'] . "/server/config.local.php");
 
 class DatabaseAccess {
     private mysqli $conn;

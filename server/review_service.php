@@ -1,5 +1,5 @@
 <?php
-require_once("./database_access.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/server/database_access.php");
 
 class ReviewService {
     public static function getReviewsByGameId($gameId) {
@@ -10,8 +10,8 @@ class ReviewService {
                 FROM reviews LEFT JOIN users
                 ON reviews.user_id=users.id
                 WHERE reviews.game_id=?",
-                "i",
-                $gameId
+            "i",
+            $gameId
         );
 
         $dba->close();

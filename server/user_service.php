@@ -1,5 +1,5 @@
 <?php
-require_once("./database_access.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/server/database_access.php");
 
 class UserService {
     public static function register($details) {
