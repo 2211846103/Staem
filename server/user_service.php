@@ -23,7 +23,7 @@ class UserService {
         $dba = new DatabaseAccess();
 
         $result = $dba->preQuery(
-            "SELECT id FROM users WHERE username=? AND password=?",
+            "SELECT id, is_publisher FROM users WHERE username=? AND password=?",
             "ss",
             $credentials["username"], $credentials["password"]
         );
@@ -34,7 +34,9 @@ class UserService {
         $_SESSION["user_id"] = $result[0]["id"];
 
         $dba->close();
-        return true;
+
+        $role = $result[0]["is_publisher"] == 1 ? "publisher" : "client";
+        return $role;
     }
     public static function isLoggedIn() {
         return session_status() == PHP_SESSION_ACTIVE;

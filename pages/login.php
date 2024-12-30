@@ -3,12 +3,21 @@ require_once("../server/user_service.php");
 
 $success = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $success = UserService::login([
+  $role = UserService::login([
     'username' => $_POST["username"],
     'password' => $_POST["password"]
   ]);
+  
+  if ($role == "publisher") {
+    header("Location: publisher_catalog.php");
+    return;
+  }
+  if ($role == "client") {
+    header("Location: homePage.php");
+    return;
+  }
 
-  if ($success) header("Location: homepage.php");
+  $success = false;
 }
 
 echo $succss;
