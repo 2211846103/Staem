@@ -6,6 +6,10 @@
     filter: brightness(115%);
 }
 
+.card {
+    cursor: default;
+}
+
 .card img {
     transition: all 0.2s;
     cursor: pointer;

@@ -39,21 +39,21 @@ $games = GameService::getTopGames();
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                           <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="homePage.php">Home</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Library</a>
+                            <a class="nav-link" href="Library.php">Library</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Cart</a>
+                            <a class="nav-link" href="cart.php">Cart</a>
                           </li>
                         </ul>
                     </div>
-                    <form method="get" class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form id="search" action="Search_result.php" method="get" class="d-flex" role="search">
+                        <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary me-2" type="submit">Search</button> 
                     </form>
-                    <a class="btn btn-outline-primary">Profile</a>                               
+                    <a class="btn btn-outline-primary" href="user_settings.php">Profile</a>                               
                 </div>
             </nav>
 
@@ -115,6 +115,8 @@ $games = GameService::getTopGames();
         <!-- Bootstrap JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/53583d85f8.js" crossorigin="anonymous"></script>
+        <!--JQuery CDN-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="../assets/js/homePage.js"></script>
     </body>
 </html>
