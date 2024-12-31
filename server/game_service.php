@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/server/database_access.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . "/server/database_access.php");
 
 class GameService {
     public static function getGameDetails($gameId) {
