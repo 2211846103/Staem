@@ -90,10 +90,10 @@ $games = GameService::getTopGames();
                             <?php
                                 foreach ($games as $game) {
                                     echo '
-                                    <div class="col h-100 d-flex">
-                                        <div class="card border-0 overflow-hidden">
-                                            <div class="rounded h-75 overflow-hidden">
-                                                <img src="'. $game["cover"] .'" class="object-fit-cover h-100" onclick="viewDetails('. $game["id"] .')">
+                                    <div class="col h-100">
+                                        <div class="card h-100 border-0">
+                                            <div class="rounded h-75 overflow-hidden d-flex justify-content-center">
+                                                <img src="'. $game["cover"] .'" class="object-fit-cover h-100 w-100" onclick="viewDetails('. $game["id"] .')">
                                             </div>
                                             <button class="btn btn-primary position-absolute m-2"><i class="fa-solid fa-cart-shopping"></i></button>
                                             <div class="card-body h-25">
