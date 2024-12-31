@@ -39,7 +39,8 @@ class UserService {
         return $role;
     }
     public static function isLoggedIn() {
-        return session_status() == PHP_SESSION_ACTIVE;
+        session_start();
+        return isset($_SESSION["user_id"]);
     }
     public static function updateInfo($details) {
         $dba = new DatabaseAccess();
