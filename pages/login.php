@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     return;
   }
   if ($role == "client") {
-    header("Location: homePage.php");
+    header("Location: index.php");
     return;
   }
 
