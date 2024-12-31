@@ -1,0 +1,16 @@
+#hero {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#hero:hover {
+    filter: brightness(115%);
+}
+
+.card img {
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.card img:hover {
+    transform: scale(1.1);
+}
