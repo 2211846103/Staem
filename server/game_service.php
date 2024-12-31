@@ -33,9 +33,10 @@ class GameService {
                 LIMIT 21"
         );
 
-        foreach ($result as $game) {
+        foreach ($result as &$game) {
             $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
             $game["hero"] = GameService::getHeroURLByGameId($game["id"]);
+            $game["rating"] = $game["rating"] == NULL ? "5" : $game["rating"];
         }
 
         $dba->close();
