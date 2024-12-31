@@ -1,9 +1,11 @@
 #hero {
     cursor: pointer;
     transition: all 0.2s;
+    filter: brightness(85%);
 }
+
 #hero:hover {
-    filter: brightness(115%);
+    filter: brightness(100%);
 }
 
 .card {

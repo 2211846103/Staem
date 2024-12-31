@@ -1,6 +1,7 @@
 <?php
 require_once("../server/game_service.php");
 require_once("../server/user_service.php");
+require_once("../server/order_service.php");
 
 if (!UserService::isLoggedIn()) {
     header("Location: login.php");
@@ -8,6 +9,12 @@ if (!UserService::isLoggedIn()) {
 }
 
 $games = GameService::getTopGames();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_POST["action"] == "add_to_cart") {
+        CartService::addToCart($_POST["id"]);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +73,7 @@ $games = GameService::getTopGames();
                 <div id="hero" class="card rounded-0 border-bottom h-75" onclick="viewDetails('. $topGame["id"] .')">
                     <img class="object-fit-cover h-100" src="'. $topGame["hero"] .'" style="filter: blur(5px);">
                     <div class="card-img-overlay d-flex flex-column justify-content-end">
-                        <h5 class="card-title display-4">'. $topGame["title"] .'</h5>
+                        <h5 class="card-title text-primary display-4">'. $topGame["title"] .'</h5>
                         <p class="card-text fs-5">'. $topGame["description"] .'</p>
                     </div>
                 </div>
@@ -88,14 +95,18 @@ $games = GameService::getTopGames();
                         <p class="h1 fw-bolder text-primary text-start">Most Popular Games</p>
                         <div class="row h-75 row-cols-2 row-cols-lg-4">
                             <?php
+
                                 foreach ($games as $game) {
+                                    $cartButton = "";
+                                    if (CartService::isAdded($game["id"])) $cartButton = "disabled";
+                                    
                                     echo '
                                     <div class="col h-100">
                                         <div class="card h-100 border-0">
                                             <div class="rounded h-75 overflow-hidden d-flex justify-content-center">
                                                 <img src="'. $game["cover"] .'" class="object-fit-cover h-100 w-100" onclick="viewDetails('. $game["id"] .')">
                                             </div>
-                                            <button class="btn btn-primary position-absolute m-2"><i class="fa-solid fa-cart-shopping"></i></button>
+                                                <button class="btn btn-primary position-absolute m-2" onclick="addToCart(this, '. $game["id"] .')" '. $cartButton .'><i class="fa-solid fa-cart-shopping"></i></button>
                                             <div class="card-body h-25">
                                                 <h5 class="card-title">'. $game["title"] .'</h5>
                                                 <p class="">'. $game["price"] .'$</p>
