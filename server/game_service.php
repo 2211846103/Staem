@@ -137,7 +137,7 @@ class GameService {
             $_SESSION["user_id"]
         );
 
-        foreach ($result as $game) {
+        foreach ($result as &$game) {
             $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
         }
 

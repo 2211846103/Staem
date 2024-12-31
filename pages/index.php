@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                           </li>
                         </ul>
                     </div>
-                    <form id="search" action="Search_result.php" method="get" class="d-flex" role="search">
+                    <form action="Search_result.php" method="get" class="d-flex" role="search">
                         <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary me-2" type="submit">Search</button> 
                     </form>
@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <div class="rounded h-75 overflow-hidden d-flex justify-content-center">
                                                 <img src="'. $game["cover"] .'" class="object-fit-cover h-100 w-100" onclick="viewDetails('. $game["id"] .')">
                                             </div>
-                                                <button class="btn btn-primary position-absolute m-2" onclick="addToCart(this, '. $game["id"] .')" '. $cartButton .'><i class="fa-solid fa-cart-shopping"></i></button>
+                                            <button class="btn btn-primary position-absolute m-2" onclick="addToCart(this, '. $game["id"] .')" '. $cartButton .'><i class="fa-solid fa-cart-shopping"></i></button>
                                             <div class="card-body h-25">
                                                 <h5 class="card-title">'. $game["title"] .'</h5>
                                                 <p class="">'. $game["price"] .'$</p>
@@ -128,6 +128,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <script src="https://kit.fontawesome.com/53583d85f8.js" crossorigin="anonymous"></script>
         <!--JQuery CDN-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="../assets/js/homePage.js"></script>
+        <script src="../assets/js/utils.js"></script>
     </body>
 </html>
