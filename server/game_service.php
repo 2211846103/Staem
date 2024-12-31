@@ -13,6 +13,8 @@ class GameService {
             "i",
             $gameId
         )[0];
+
+        $result["screenshots"] = GameService::getScreenshotsURLByGameId($result["id"]);
         
         $dba->close();
         return $result;
@@ -21,13 +23,20 @@ class GameService {
         $dba = new DatabaseAccess();
 
         $result = $dba->query(
-            "SELECT games.*, COUNT(library_items.user_id) AS copies_sold 
+            "SELECT games.*, COUNT(library_items.user_id) AS copies_sold, AVG(reviews.rating) AS rating 
                 FROM games LEFT JOIN library_items 
                 ON games.id=library_items.game_id
+                LEFT JOIN reviews
+                ON games.id=reviews.game_id
                 GROUP BY games.id 
                 ORDER BY copies_sold DESC 
                 LIMIT 21"
         );
+
+        foreach ($result as $game) {
+            $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
+            $game["hero"] = GameService::getHeroURLByGameId($game["id"]);
+        }
 
         $dba->close();
         return $result;
@@ -47,6 +56,10 @@ class GameService {
             "s",
             $pattern
         );
+
+        foreach ($result as $game) {
+            $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
+        }
 
         $dba->close();
         return $result;
@@ -69,6 +82,10 @@ class GameService {
             $pattern
         );
 
+        foreach ($result as $game) {
+            $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
+        }
+
         $dba->close();
         return $result;
     }
@@ -87,6 +104,10 @@ class GameService {
             "s",
             $pattern
         );
+
+        foreach ($result as $game) {
+            $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
+        }
 
         $dba->close();
         return $result;
@@ -115,7 +136,44 @@ class GameService {
             $_SESSION["user_id"]
         );
 
+        foreach ($result as $game) {
+            $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
+        }
+
         $dba->close();
         return $result;
+    }
+
+    private static function getCoverURLByGameId($gameId) {
+        $dir = '../data/'. $gameId .'/';
+
+        $files = glob($dir."cover.*");
+        if (empty($files)) return null;
+
+        $cover = basename($files[0]);
+        return $dir.$cover;
+    }
+    private static function getHeroURLByGameId($gameId) {
+        $dir = '../data/'. $gameId .'/';
+
+        $files = glob($dir."hero.*");
+        if (empty($files)) return null;
+
+        $hero = basename($files[0]);
+        return $dir.$hero;
+    }
+    private static function getScreenshotsURLByGameId($gameId) {
+        $dir = '../data/'. $gameId .'/screenshots/';
+
+        $files = glob($dir."*");
+        if (empty($files)) return null;
+
+        $urls = [];
+        foreach ($files as $file) {
+            $screenshot = basename($file);
+            array_push($urls, $screenshot);
+        }
+
+        return $urls;
     }
 }
