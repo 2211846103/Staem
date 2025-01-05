@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 foreach ($games as $game) {
                                     $cartButton = "";
-                                    if (CartService::isAdded($game["id"])) $cartButton = "disabled";
+                                    if (CartService::isAdded($game["id"])) $cartButton = "hidden";
                                     
                                     echo '
                                     <div class="col h-100">
