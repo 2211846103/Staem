@@ -1,3 +1,21 @@
+<?php
+require_once("../server/user_service.php");
+
+if (isLoggedIn() == false){
+   header(header: "Location : login.php");
+   return;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  UserService:: changePassword([
+    'newPass' => $_POST["newPass"],
+    'currentPass' => $_POST["currentPass"]
+  ]);
+
+}
+
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -18,20 +36,20 @@
             <!--Navigation Bar (Remove if Unnecessary)-->
             <nav class="navbar navbar-expand bg-body-secondary">
                 <div class="container-fluid px-5">
-                    <a href="#" class="navbar-brand mb-0 h1 fs-2">Staem</a>
+                    <a href="index.php" class="navbar-brand mb-0 h1 fs-2">Staem</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Library</a>
+                            <a class="nav-link" href="Library.php">Library</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Cart</a>
+                            <a class="nav-link" href="cart.php">Cart</a>
                           </li>
                         </ul>
                       </div>
@@ -46,27 +64,32 @@
             <main class="row h-100">
               <div class="p-5 pe-2 col-3">
                 <ul class="list-group list-group-flush border rounded h-100">
-                  <li class="list-group-item active">Account Settings</li>
-                  <li class="list-group-item list-group-item-action">Security</li>
-                  <li class="list-group-item list-group-item-action mb-auto">Transactions</li>
+                  <li class="list-group-item list-group-item-action" href="user_settings.php">Account Settings</li>
+                  <li class="list-group-item active" href="security.php">Security</li>
+                  <li class="list-group-item list-group-item-action mb-auto" herf="Transactions.php">Transactions</li>
                   <button class="list-group-item list-group-item-action border-top text-danger">Logout</button>
                 </ul>
               </div>
               <div class="p-5 ps-2 col-9">
                 <div class="card h-100 border">
                   <div class="card-body d-flex flex-column align-items-center">
-                    <h1 class="text-center mb-4">Profile Settings</h1>
-                    <form class="w-50">
+                    <h1 class="text-center mb-4">Change Password</h1>
+                    <form class="w-50" id="passwordForm" action="security.php" method="post">
+                      <p class="text-danger d-none" id="error"></p>
                       <div class="mb-3">
-                          <label for="username" class="form-label">Username</label>
-                          <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                          <label for="currentPassword" class="form-label">Current Password</label>
+                          <input type="password" class="form-control" name="currentPass" id="currentPassword" placeholder="Enter your current password" required>
                       </div>
                       <div class="mb-3">
-                          <label for="email" class="form-label">Email Address</label>
-                          <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                          <label for="newPassword" class="form-label">New Password</label>
+                          <input type="password" class="form-control" name="newPass" id="newPassword" placeholder="Enter a new password" required>
                       </div>
-                      <div class="d-flex">
-                        <button type="submit" class="btn btn-primary me-auto">Save Changes</button>
+                      <div class="mb-3">
+                          <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your new password" required>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Change Password</button>
                       </div>
                     </form>
                   </div>
