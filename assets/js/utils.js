@@ -10,7 +10,7 @@ function addToCart(button, id) {
             id: id
         },
         success: function (result) {
-            button.disabled = true;
+            button.remove();
         }
     });
 }
