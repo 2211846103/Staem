@@ -20,9 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"])) {
   $success = false;
 }
 
-echo $succss;
+echo $success;
 ?>
-
 <!DOCTYPE html>
 
 <html>
