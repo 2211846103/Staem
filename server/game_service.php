@@ -58,7 +58,7 @@ class GameService {
             $pattern
         );
 
-        foreach ($result as $game) {
+        foreach ($result as &$game) {
             $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
         }
 
@@ -83,7 +83,7 @@ class GameService {
             $pattern
         );
 
-        foreach ($result as $game) {
+        foreach ($result as &$game) {
             $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
         }
 
@@ -106,7 +106,7 @@ class GameService {
             $pattern
         );
 
-        foreach ($result as $game) {
+        foreach ($result as &$game) {
             $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
         }
 
@@ -145,7 +145,7 @@ class GameService {
         return $result;
     }
 
-    private static function getCoverURLByGameId($gameId) {
+    public static function getCoverURLByGameId($gameId) {
         $dir = '../data/'. $gameId .'/';
 
         $files = glob($dir."cover.*");
@@ -154,7 +154,7 @@ class GameService {
         $cover = basename($files[0]);
         return $dir.$cover;
     }
-    private static function getHeroURLByGameId($gameId) {
+    public static function getHeroURLByGameId($gameId) {
         $dir = '../data/'. $gameId .'/';
 
         $files = glob($dir."hero.*");
