@@ -71,13 +71,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <main class="container">
                 <div class="h1 text-primary display-3 fw-bolder mt-3 pt-5 my-4">The Results</div>
                 <div id="results">
+
                 <?php
+
+                if ($games == 0 && $ganres == 0 && $puplishers == 0) {
+
+                  echo ' <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> There is no games </div>';
+
+                }
 
                   foreach ($games as $game) {
                     $cartButton = "";
                     if (CartService::isAdded($game["id"])) $cartButton = "hidden";
 
                     echo '
+                      <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> Games By Title </div>
                       <div class="border rounded d-lg-flex mb-4">
                         <img src="'. $game["cover"] .' " class="col-lg-2 col-12 rounded-start">
                         <div class="card-body col-10 p-4">
@@ -88,12 +96,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                       </div>    ';
                   }
+                ?>
 
+                <?php
                   foreach ($ganres as $game) {
                     $cartButton = "";
                     if (CartService::isAdded($game["id"])) $cartButton = "hidden";
 
                     echo '
+                      <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> Games By Ganre </div>
                       <div class="border rounded d-lg-flex mb-4">
                         <img src="'. $game["cover"] .' " class="col-lg-2 col-12 rounded-start">
                         <div class="card-body col-10 p-4">
@@ -104,12 +115,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                       </div>    ';
                   }
+                ?>
 
+                <?php
                   foreach ($puplishers as $game) {
                     $cartButton = "";
                     if (CartService::isAdded($game["id"])) $cartButton = "hidden";
 
                     echo '
+                      <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> Games By Puplisher </div>
                       <div class="border rounded d-lg-flex mb-4">
                         <img src="'. $game["cover"] .' " class="col-lg-2 col-12 rounded-start">
                         <div class="card-body col-10 p-4">
