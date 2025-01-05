@@ -1,5 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . "/server/database_access.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . "/server/game_service.php");
 
 enum TransactionType {
     case PURCHASE;
@@ -18,6 +19,10 @@ class CartService {
             "i",
             $_SESSION["user_id"]
         );
+
+        foreach ($result as &$game) {
+            $game["cover"] = GameService::getCoverURLByGameId($game["id"]);
+        }
 
         $dba->close();
         return $result;
@@ -38,15 +43,21 @@ class CartService {
     public static function isAdded($gameId) {
         $dba = new DatabaseAccess();
 
-        $result = $dba->preQuery(
+        $cartResult = $dba->preQuery(
             "SELECT * FROM cart_items
+                Where user_id=? AND game_id=?",
+                "ii",
+                $_SESSION["user_id"], $gameId
+        );
+        $libraryResult = $dba->preQuery(
+            "SELECT * FROM library_items
                 Where user_id=? AND game_id=?",
                 "ii",
                 $_SESSION["user_id"], $gameId
         );
 
         $dba->close();
-        return count($result) > 0;
+        return count($cartResult) > 0 || count($libraryResult) > 0;
     }
     public static function removeFromCart($gameId) {
         $dba = new DatabaseAccess();
@@ -132,6 +143,18 @@ class CartService {
             'refunds' => $stats["refunds"],
             'net_revenue' => $stats["revenue_gained"] - $stats["revenue_lost"]
         ];
+    }
+    public static function cancelOrder() {
+        $dba = new DatabaseAccess();
+
+        $dba->preUpdate(
+            "DELETE FROM cart_items
+                WHERE user_id=?",
+                "i",
+                $_SESSION["user_id"]
+        );
+
+        $dba->close();
     }
 
     private static function addTransaction($gameId, $value,TransactionType $type) {
