@@ -1,3 +1,21 @@
+<?php
+require_once("../server/user_service.php");
+
+if(!isLoggedIn()){
+   header(header: "Location : login.php");
+   return;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  UserService:: changePassword([
+    'newPass' => $_POST["newPass"],
+    'currentPass' => $_POST["currentPass"]
+  ]);
+
+}
+
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -18,20 +36,20 @@
             <!--Navigation Bar (Remove if Unnecessary)-->
             <nav class="navbar navbar-expand bg-body-secondary">
                 <div class="container-fluid px-5">
-                    <a href="#" class="navbar-brand mb-0 h1 fs-2">Staem</a>
+                    <a href="index.php" class="navbar-brand mb-0 h1 fs-2">Staem</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Library</a>
+                            <a class="nav-link" href="Library.php">Library</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Cart</a>
+                            <a class="nav-link" href="cart.php">Cart</a>
                           </li>
                         </ul>
                       </div>
@@ -56,14 +74,15 @@
                 <div class="card h-100 border">
                   <div class="card-body d-flex flex-column align-items-center">
                     <h1 class="text-center mb-4">Change Password</h1>
-                    <form class="w-50">
+                    <form class="w-50" id="passwordForm" action="security.php" method="post">
+                      <p class="text-danger d-none" id="error"></p>
                       <div class="mb-3">
                           <label for="currentPassword" class="form-label">Current Password</label>
-                          <input type="password" class="form-control" id="currentPassword" placeholder="Enter your current password" required>
+                          <input type="password" class="form-control" name="currentPass" id="currentPassword" placeholder="Enter your current password" required>
                       </div>
                       <div class="mb-3">
                           <label for="newPassword" class="form-label">New Password</label>
-                          <input type="password" class="form-control" id="newPassword" placeholder="Enter a new password" required>
+                          <input type="password" class="form-control" name="newPass" id="newPassword" placeholder="Enter a new password" required>
                       </div>
                       <div class="mb-3">
                           <label for="confirmPassword" class="form-label">Confirm New Password</label>
