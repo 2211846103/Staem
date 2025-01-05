@@ -1,7 +1,7 @@
 <?php
 require_once("../server/user_service.php");
 
-if(!isLoggedIn()){
+if (isLoggedIn() == false){
    header(header: "Location : login.php");
    return;
 }
@@ -64,9 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <main class="row h-100">
               <div class="p-5 pe-2 col-3">
                 <ul class="list-group list-group-flush border rounded h-100">
-                  <li class="list-group-item list-group-item-action">Account Settings</li>
-                  <li class="list-group-item active">Security</li>
-                  <li class="list-group-item list-group-item-action mb-auto">Transactions</li>
+                  <li class="list-group-item list-group-item-action" href="user_settings.php">Account Settings</li>
+                  <li class="list-group-item active" href="security.php">Security</li>
+                  <li class="list-group-item list-group-item-action mb-auto" herf="Transactions.php">Transactions</li>
                   <button class="list-group-item list-group-item-action border-top text-danger">Logout</button>
                 </ul>
               </div>
