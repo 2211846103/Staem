@@ -2,7 +2,7 @@
 require_once("../server/user_service.php");
 
 $success = true;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"])) {
   $role = UserService::login([
     'username' => $_POST["username"],
     'password' => $_POST["password"]

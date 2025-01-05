@@ -66,18 +66,17 @@ $games = GameService::getLibrary();
             ?>
                 <div class="h1 text-primary fw-bolder display-3 mt-5 pt-5 my-4">Library</div>
                 <div class="container text-center">
-                  <div class="row g-4 row-cols-2 row-cols-lg-4 mb-4">
+                  <div class="row vh-100 g-4 row-cols-2 row-cols-lg-4 mb-4">
                     <?php
                       foreach ($games as $game) {
                         echo '
-                        <div class="col d-flex justify-content-center">
-                          <div class="card border">
-                              <div class="rounded h-75 overflow-hidden d-flex justify-content-center">
-                                  <img src="'. $game["cover"] .'" class="object-fit-cover h-100 w-100" onclick="viewDetails('. $game["id"] .')">
-                              </div>
-                              <div class="card-body d-flex align-items-center justify-content-center">
-                                <p class=" card-text fw-bolder fs-3">'. $game["title"] .'</p>
-                              </div>
+                        <div class="col h-75">
+                          <div class="card h-100 border-0">
+                            <div class="rounded h-75 overflow-hidden d-flex justify-content-center">
+                                <img src="'. $game["cover"] .'" class="object-fit-cover h-100 w-100" onclick="viewDetails('. $game["id"] .')">
+                            </div>
+                            <div class="card-body h-25">
+                                <h5 class="card-title">'. $game["title"] .'</h5>
                             </div>
                           </div>
                         </div>

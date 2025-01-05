@@ -3,9 +3,7 @@ function viewDetails(id) {
 }
 
 function addToCart(button, id) {
-    console.log(id);
-
-    $.ajax("../../pages/homePage.php", {
+    $.ajax("../../pages/index.php", {
         method: "post",
         data: {
             action: "add_to_cart",
