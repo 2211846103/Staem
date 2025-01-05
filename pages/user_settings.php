@@ -1,7 +1,7 @@
 <?php
 require_once("../server/user_service.php");
 
-if (isLoggedIn() == false) {
+if (!UserService::isLoggedIn()) {
   header("Location : login.php");
   return;
 }
