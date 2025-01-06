@@ -17,6 +17,7 @@ class GameService {
         )[0];
 
         $result["screenshots"] = GameService::getScreenshotsURLByGameId($gameId);
+        $result["hero"] = GameService::getHeroURLByGameId($gameId);
         $result["genres"] = GameService::getGameGenres($gameId);
         
         $dba->close();

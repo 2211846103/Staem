@@ -158,7 +158,7 @@ class CartService {
                 FROM transactions WHERE game_id=?",
             "i",
             $gameId
-        );
+        )[0];
 
         $dba->close();
         return [
