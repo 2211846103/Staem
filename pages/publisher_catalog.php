@@ -1,19 +1,16 @@
 <?php
-
- require_once("../server/user_service.php");
+require_once("../server/user_service.php");
 require_once("../server/game_service.php");
 require_once("../server/review_service.php");
 require_once("../server/order_service.php");
 
+if (!UserService::isLoggedIn()) {
+  header("Location: login.php");
+  return;
+}
 
-$games = GameService::getGamesbypublisher(publisherId: UserService::isLoggedIn());
- 
-
-
-
-
-
-
+$games = GameService::getGamesbypublisher();
+$selected = false;
 ?>
 <!DOCTYPE html>
 
@@ -56,12 +53,7 @@ $games = GameService::getGamesbypublisher(publisherId: UserService::isLoggedIn()
                   <div class="list-group list-group-flush h-100 overflow-scroll">
                     <?php 
                     foreach ($games as $game) {
-                      echo '<button class="list-group-item list-group-item-action">'.$game["title"].'</but
-
-                    
-                    <button class="list-group-item list-group-item-action">'.$game["title"].'</button>
-                    <button class="list-group-item list-group-item-action">'.$game["title"].'</button>
-                    <button class="list-group-item list-group-item-action">'.$game["title"].'</button> ';}
+                      echo '<button class="list-group-item list-group-item-action">'.$game["title"].'</button>';}
                     ?>
                   </div>
                 </section>

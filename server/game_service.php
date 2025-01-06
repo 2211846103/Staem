@@ -116,13 +116,13 @@ class GameService {
         $dba->close();
         return $result;
     }
-    public static function getGamesByPublisher($publisherId) {
+    public static function getGamesByPublisher() {
         $dba = new DatabaseAccess();
 
         $result = $dba->preQuery(
             "SELECT * FROM games WHERE publisher_id=?",
             "i",
-            $publisherId
+            $_SESSION["user_id"]
         );
 
         $dba->close();
