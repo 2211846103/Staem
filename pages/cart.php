@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary me-2" type="submit">Search</button> 
                       </form>
-                      <a class="btn btn-outline-primary" onclick="window.location.href = 'user_settings.php'">Profile</a>
+                      <a class="btn btn-outline-primary" href="user_settings.php">Profile</a>
            
                 </div>
             </nav>

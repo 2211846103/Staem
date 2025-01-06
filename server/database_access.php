@@ -18,6 +18,7 @@ class DatabaseAccess {
         $this->stmt = $this->conn->prepare($sql);
         $this->stmt->bind_param($types, ...$inputs);
         $this->stmt->execute();
+        return $this->stmt->affected_rows;
     }
     public function query($sql) {
         $this->result = $this->conn->query($sql);

@@ -7,10 +7,18 @@ enum TransactionType {
     case REFUND;
 }
 
-enum PurchaseState {
+enum PurchaseState implements JsonSerializable {
     case AVAILABLE;
     case IN_CART;
     case OWNED;
+
+    public function jsonSerialize(): string {
+        return match($this) {
+            PurchaseState::AVAILABLE => 'available',
+            PurchaseState::IN_CART => 'in_cart',
+            PurchaseState::OWNED => 'owned'
+        };
+    }
 }
 
 class CartService {
@@ -117,7 +125,7 @@ class CartService {
             "ii",
             $_SESSION["user_id"], $gameId
         );
-        $value = CartService::getTransactionByGameId($gameId)["value"];
+        $value = CartService::getTransactionByGameId($gameId);
         CartService::addTransaction($gameId, $value, TransactionType::REFUND);
 
         $dba->close();
@@ -126,9 +134,11 @@ class CartService {
         $dba = new DatabaseAccess();
 
         $result = $dba->preQuery(
-            "SELECT * FROM transactions
-                WHERE user_id=?
-                ORDER BY date DESC",
+            "SELECT transactions.*, games.title 
+                FROM transactions INNER JOIN games
+                ON transactions.game_id=games.id
+                WHERE transactions.user_id=?
+                ORDER BY date DESC, id DESC",
                 "i",
                 $_SESSION["user_id"]
         );
@@ -196,6 +206,6 @@ class CartService {
         );
 
         $dba->close();
-        return $result[0];
+        return $result[0]["value"];
     }
 }

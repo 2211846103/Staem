@@ -18,14 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     CartService::refundGame($_POST["id"]);
     return;
   }
-  if ($_POST["action"] == "add-review") {
-    ReviewService::addReview([
-      'body' => $_POST["body"],
-      'rating' => $_POST["rating"],
-      'game_id' => $_POST["id"]
-    ]);
-    return;
-  }
 }
 
 if (!isset($_GET["id"])) {
@@ -46,6 +38,9 @@ if (isset($_GET["action"])) {
         'rating' => $rating,
         'game_id' => $_GET["id"]
       ]);
+
+      header("Location: Game_details.php?id=". $_GET["id"]);
+      return;
     }
   }
 }
@@ -80,7 +75,7 @@ if (isset($_GET["action"])) {
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                           <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="Library.php">Library</a>
@@ -94,7 +89,7 @@ if (isset($_GET["action"])) {
                         <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary me-2" type="submit">Search</button> 
                       </form>
-                      <a class="btn btn-outline-primary" onclick="window.location.href = 'user_settings.php'">Profile</a>                              
+                      <a class="btn btn-outline-primary" href="user_settings.php">Profile</a>                              
                 </div>
             </nav>
 

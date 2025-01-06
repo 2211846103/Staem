@@ -32,6 +32,7 @@ class UserService {
 
         session_start();
         $_SESSION["user_id"] = $result[0]["id"];
+        $_SESSION["is_logged_in"] = true;
 
         $dba->close();
 
@@ -40,32 +41,42 @@ class UserService {
     }
     public static function isLoggedIn() {
         session_start();
-        return isset($_SESSION["user_id"]);
+        return $_SESSION["is_logged_in"];
     }
     public static function updateInfo($details) {
         $dba = new DatabaseAccess();
 
-        $dba->preUpdate(
-            "UPDATE users SET username=?, email=? WHERE id=?",
-            "ssi",
-            $details["username"], $details["email"], $_SESSION["user_id"]
-        );
+        if ($details["username"] != "") {
+            $dba->preUpdate(
+                "UPDATE users SET username=? WHERE id=?",
+                "si",
+                $details["username"], $_SESSION["user_id"]
+            );
+        }
+        if ($details["email"] != "") {
+            $dba->preUpdate(
+                "UPDATE users SET email=? WHERE id=?",
+                "si",
+                $details["email"], $_SESSION["user_id"]
+            );
+        }
 
         $dba->close();
     }
     public static function changePassword($passwordInfo) {
         $dba = new DatabaseAccess();
 
-        $dba->preUpdate(
+        $results = $dba->preUpdate(
             "UPDATE users SET password=? WHERE id=? AND password=?",
             "sis",
             $passwordInfo["newPass"], $_SESSION["user_id"], $passwordInfo["currentPass"]
         );
 
         $dba->close();
+        return $results > 0;
     }
     public static function logout() {
-        session_unset();
-        session_destroy();
+        session_start();
+        $_SESSION["is_logged_in"] = false;
     }
 }

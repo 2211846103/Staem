@@ -1,0 +1,19 @@
+p {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.result {
+    cursor: pointer;
+}
+
+.result img {
+    transition: all 0.5s ease;
+}
+
+.result:hover img {
+    transform: scale(1.05);
+}

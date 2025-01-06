@@ -10,7 +10,7 @@ function addToCart(button, id) {
             id: id
         },
         success: function (result) {
-            button.remove();
+            $(button).replaceWith(`<button disabled type="button" class="btn btn-primary position-absolute m-2">In Cart</button>`);
         }
     });
 }

@@ -1,29 +1,51 @@
-$(document).ready(function() {
-    $('#passwordForm').on('submit', function(e) {
-        let currentPassword = $('#currentPassword').val();
-        let newPassword = $('#newPassword').val();
-        let confirmPassword = $('#confirmPassword').val();
-        let errorMassage = $('#error');
+$('#passwordForm').submit(function(e) {
+    let currentPassword = $('#currentPassword');
+    let newPassword = $('#newPassword');
+    let confirmPassword = $('#confirmPassword');
 
-        if (newPassword !== confirmPassword) {
-            errorMassage.text("new passowrd do not match!");
-            setError();
-            e.preventDefault();
-        }else setSuccess();
+    let isValid = true; // Track overall form validity
 
-        if (currentPassword == "" || newPassword == "" || confirmPassword == "") {
-            errorMassage.text("please fill the empty filds!");
-            setError();
-            e.preventDefault();
-        }else setSuccess();
-        
-    });
+    if (currentPassword.val() == "") {
+        setError(currentPassword, "Current Password is Required");
+        isValid = false;
+    } else {
+        setSuccess(currentPassword);
+    }
+
+    if (newPassword.val() == "") {
+        setError(newPassword, "New Password is Required");
+        isValid = false;
+    } else {
+        setSuccess(newPassword);
+    }
+
+    if (confirmPassword.val() == "") {
+        setError(confirmPassword, "Password Confirmation is Required");
+        isValid = false;
+    } else {
+        setSuccess(confirmPassword);
+    }
+
+    if (newPassword.val() != confirmPassword.val() && newPassword.val() !== "" && confirmPassword.val() !== "") {
+        setError(confirmPassword, "New Password and Password Confirmation Must Match");
+        isValid = false;
+    }
+
+    if (!isValid) e.preventDefault();
 });
 
-const setError = () => {
-    $("#error").addClass("d-none");
+function setError(element, message) {
+    if (element) {
+        $(element).addClass("border-danger");
+        $(element).removeClass("border-success");
+    }
+    $("#error").text(message).show();
 }
 
-const setSuccess = () => {
-    $("#error").reomveClass("d-none");
+function setSuccess(element) {
+    if (element) {
+        $(element).removeClass("border-danger");
+        $(element).addClass("border-success");
+    }
+    $("#error").hide();
 }

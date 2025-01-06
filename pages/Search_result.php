@@ -9,14 +9,27 @@ if (!UserService::isLoggedIn()) {
   return;
 }
 
+$titles = GameService::getGamesByTitle($_GET["query"]);
+$genres = GameService::getGamesByGenre($_GET["query"]);
+$descs = GameService::getGamesByDesc($_GET["query"]);
 
-$games = GameService::getGamesByTitle($_GET["query"]);
-$ganres = GameService::getGamesByGenre($_GET["query"]);
-$puplishers = GameService::getGamesByPublisher($_GET["query"]);
+$list = [];
+foreach ([$descs, $genres, $titles] as $queryResult) {
+  foreach ($queryResult as $result) {
+    $result["state"] = CartService::isAdded($result["id"]);
+    $list[$result["id"]] = $result;
+  }
+}
+
+if (isset($_GET["action"])) {
+  echo json_encode($list);
+  return;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if ($_POST["action"] == "add_to_cart") {
+  if ($_POST["action"] == "add-to-cart") {
       CartService::addToCart($_POST["id"]);
+      return;
   }
 }
 
@@ -32,9 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!--Bootstrap CSS and Main CSS-->
         <link rel="stylesheet" href="../assets/css/bootstrap.custom.css">
+        <link rel="stylesheet" href="../assets/css/results.css">
 
         <!--Other-->
-        <title>Search Result - Staem</title>
+        <title>Browse Games - Staem</title>
     </head>
     <body>
         <!--Main Container-->
@@ -49,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                           <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="Library.php">Library</a>
@@ -59,83 +73,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                           </li>
                         </ul>
                       </div>
-                      <form action="Search_result.php" method="get" class="d-flex" role="search">
+                      <form class="d-flex" role="search">
                         <input name="query" id="query" onkeyup="search()" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary me-2" type="submit">Search</button>
                       </form>
-                      <a class="btn btn-outline-primary">Profile</a>                               
+                      <a class="btn btn-outline-primary" href="user_settings.php">Profile</a>                               
                 </div>
             </nav>
 
             <!--Put your code here-->
-            <main class="container">
-                <div class="h1 text-primary display-3 fw-bolder mt-3 pt-5 my-4">The Results</div>
-                <div id="results">
+            <main class="container vh-100">
+              <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4">Result</div>
+              <div id="results" class="h-75">
+              <?php
+              if (empty($list))
+                echo ' <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> There is no games </div>';
 
-                <?php
+              foreach ($list as $game) {
+                $cartButton = "";
+                if ($game["state"] == PurchaseState::AVAILABLE)
+                  $cartButton = '<button class="add-to-cart btn btn-primary" value="'. $game["id"] .'"><i class="fa-solid fa-cart-shopping"></i></button>';
+                else if ($game["state"] == PurchaseState::IN_CART)
+                  $cartButton = '<button class="btn btn-primary" disabled>In Cart</button>';
 
-                if ($games == 0 && $ganres == 0 && $puplishers == 0) {
-
-                  echo ' <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> There is no games </div>';
-
-                }
-
-                  foreach ($games as $game) {
-                    $cartButton = "";
-                    if (CartService::isAdded($game["id"])) $cartButton = "hidden";
-
-                    echo '
-                      <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> Games By Title </div>
-                      <div class="border rounded d-lg-flex mb-4">
-                        <img src="'. $game["cover"] .' " class="col-lg-2 col-12 rounded-start">
-                        <div class="card-body col-10 p-4">
-                          <h5 class="card-title fs-1">'. $game["title"] .'</h5>
-                          <h5 class="card-text fs-4">'. $game["price"] .'</h5>
-                          <button class="btn btn-primary" onclick="addToCart(this, '. $game["id"] .')" '. $cartButton .'><i class="fa-solid fa-cart-shopping"></i></button>
-                          <p class="card-text mt-3">'. $game["description"] .'</p>
-                        </div>
-                      </div>    ';
-                  }
-                ?>
-
-                <?php
-                  foreach ($ganres as $game) {
-                    $cartButton = "";
-                    if (CartService::isAdded($game["id"])) $cartButton = "hidden";
-
-                    echo '
-                      <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> Games By Ganre </div>
-                      <div class="border rounded d-lg-flex mb-4">
-                        <img src="'. $game["cover"] .' " class="col-lg-2 col-12 rounded-start">
-                        <div class="card-body col-10 p-4">
-                          <h5 class="card-title fs-1">'. $game["title"] .'</h5>
-                          <h5 class="card-text fs-4">'. $game["price"] .'</h5>
-                          <button class="btn btn-primary" onclick="addToCart(this, '. $game["id"] .')" '. $cartButton .'><i class="fa-solid fa-cart-shopping"></i></button>
-                          <p class="card-text mt-3">'. $game["description"] .'</p>
-                        </div>
-                      </div>    ';
-                  }
-                ?>
-
-                <?php
-                  foreach ($puplishers as $game) {
-                    $cartButton = "";
-                    if (CartService::isAdded($game["id"])) $cartButton = "hidden";
-
-                    echo '
-                      <div class="h1 text-primary fw-bolder mt-3 pt-5 my-4"> Games By Puplisher </div>
-                      <div class="border rounded d-lg-flex mb-4">
-                        <img src="'. $game["cover"] .' " class="col-lg-2 col-12 rounded-start">
-                        <div class="card-body col-10 p-4">
-                          <h5 class="card-title fs-1">'. $game["title"] .'</h5>
-                          <h5 class="card-text fs-4">'. $game["price"] .'</h5>
-                          <button class="btn btn-primary" onclick="addToCart(this, '. $game["id"] .')" '. $cartButton .'><i class="fa-solid fa-cart-shopping"></i></button>
-                          <p class="card-text mt-3">'. $game["description"] .'</p>
-                        </div>
-                      </div>    ';
-                  }
-                ?>
-                </div>
+                echo '
+                  <div class="result border rounded d-lg-flex mb-4 h-50" onclick="viewDetails('. $game["id"] .')">
+                  <div class="col-lg-2 col-12 rounded-start overflow-hidden">
+                  <img src="'. $game["cover"] .' " class="h-100 w-100 object-fit-cover">
+                  </div>
+                  <div class="card-body col-10 p-4">
+                    <h5 class="card-title fs-1">'. $game["title"] .'</h5>
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="card-text text-body-secondary fs-4">$'. $game["price"] .'</h5>
+                      '. $cartButton .'
+                    </div>
+                      <p class="card-text mt-3">'. $game["description"] .'</p>
+                    </div>
+                  </div>    ';
+              }
+              ?>
+              </div>
             </main>
         </div>
 

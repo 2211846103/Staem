@@ -2,25 +2,30 @@
 require_once("../server/user_service.php");
 
 $success = true;
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"])) {
-  $role = UserService::login([
-    'username' => $_POST["username"],
-    'password' => $_POST["password"]
-  ]);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if ($_POST["action"] == "login") {
+    $role = UserService::login([
+      'username' => $_POST["username"],
+      'password' => $_POST["password"]
+    ]);
+    
+    if ($role == "publisher") {
+      header("Location: publisher_catalog.php");
+      return;
+    }
+    if ($role == "client") {
+      header("Location: index.php");
+      return;
+    }
   
-  if ($role == "publisher") {
-    header("Location: publisher_catalog.php");
+    $success = false;
+  }
+  if ($_POST["action"] == "logout") {
+    UserService::logout();
+    echo "Test";
     return;
   }
-  if ($role == "client") {
-    header("Location: index.php");
-    return;
-  }
-
-  $success = false;
 }
-
-echo $success;
 ?>
 <!DOCTYPE html>
 
@@ -61,7 +66,7 @@ echo $success;
                           </div>
                           <!-- Log In Button -->
                           <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Log In</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="login">Log In</button>
                           </div>
                           <!-- Sign Up Link -->
                           <p class="text-center mt-3">

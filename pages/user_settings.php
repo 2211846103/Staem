@@ -11,13 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     'username'=> $_POST["username"],
     'email'=> $_POST["email"]
   ]);
-
 }
-
-
 ?>
-
-
 
 <!DOCTYPE html>
 
@@ -29,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!--Bootstrap CSS and Main CSS-->
         <link rel="stylesheet" href="../assets/css/bootstrap.custom.css">
+        <link rel="stylesheet" href="../assets/css/settings.css">
 
         <!--Other-->
         <title>User Settings - Staem</title>
@@ -56,21 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                           </li>
                         </ul>
                       </div>
-                      <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <form action="Search_result.php" class="d-flex" role="search">
+                        <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary me-2" type="submit">Search</button>
-                      </form>                              
+                      </form>                          
                 </div>
             </nav>
 
             <!--Put your code here-->
             <main class="row h-100">
-              <div class="p-5 pe-2 col-3">
+              <div class="p-5 pe-2 col-3 h-75">
                 <ul class="list-group list-group-flush border rounded h-100">
-                  <li class="list-group-item active">Account Settings</li>
-                  <li class="list-group-item list-group-item-action" href="security.php">Security</li>
-                  <li class="list-group-item list-group-item-action mb-auto" herf="Transactions.php">Transactions</li>
-                  <button class="list-group-item list-group-item-action border-top text-danger">Logout</button>
+                  <li class="list-group-item active" onclick="window.location.href = 'user_settings.php'">Account Settings</li>
+                  <li class="list-group-item list-group-item-action" onclick="window.location.href = 'security.php'">Security</li>
+                  <li class="list-group-item list-group-item-action mb-auto" onclick="window.location.href = 'Transactions.php'">Transactions</li>
+                  <button class="list-group-item list-group-item-action border-top text-danger" onclick="logout()">Logout</button>
                 </ul>
               </div>
               <div class="p-5 ps-2 col-9">
@@ -98,5 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!--Bootstrap Javascript-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="../assets/js/logout.js"></script>
     </body>
 </html>

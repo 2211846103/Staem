@@ -23,9 +23,10 @@ $transactions = CartService::getUserTransactions();
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../assets/css/bootstrap.custom.css">
+    <link rel="stylesheet" href="../assets/css/settings.css">
 
     <!-- Page Title -->
-    <title>Transactions - Staem</title>
+    <title>Transaction History - Staem</title>
 </head>
 <body>
     <!-- Main Container -->
@@ -43,33 +44,33 @@ $transactions = CartService::getUserTransactions();
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Library</a>
+                            <a class="nav-link" href="Library.php">Library</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Cart</a>
+                            <a class="nav-link" href="cart.php">Cart</a>
                         </li>
                     </ul>
                 </div>
                 <!-- Search Form -->
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form action="Search_result.php" class="d-flex" role="search">
+                    <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-primary me-2" type="submit">Search</button>
-                </form>
+                </form> 
             </div>
         </nav>
 
         <!-- Main Content Area -->
         <main class="row h-100">
             <!-- Sidebar with Account Options -->
-            <div class="p-5 pe-2 col-3">
+            <div class="p-5 pe-2 col-3 h-75">
                 <ul class="list-group list-group-flush border rounded h-100">
-                    <li class="list-group-item list-group-item-action">Account Settings</li>
-                    <li class="list-group-item list-group-item-action">Security</li>
-                    <li class="list-group-item active mb-auto">Transactions</li>
-                    <button class="list-group-item list-group-item-action border-top text-danger">Logout</button>
+                    <li class="list-group-item list-group-item-action" onclick="window.location.href = 'user_settings.php'">Account Settings</li>
+                    <li class="list-group-item list-group-item-action" onclick="window.location.href = 'security.php'">Security</li>
+                    <li class="list-group-item list-group-item-action active mb-auto" onclick="window.location.href = 'Transactions.php'">Transactions</li>
+                    <button class="list-group-item list-group-item-action border-top text-danger" onclick="logout()">Logout</button>
                 </ul>
             </div>
             <!-- Transaction History Section -->
@@ -96,16 +97,11 @@ $transactions = CartService::getUserTransactions();
                                 <tbody id="transactionTable">
                                     <?php foreach ($transactions as $transaction): ?>
                                         <tr>
-                                            <!-- Transaction ID -->
-                                            <th scope="row"><?php echo htmlspecialchars($transaction['id']); ?></th>
-                                            <!-- Game Name -->
-                                            <td><?php echo htmlspecialchars($transaction['game_id']); ?></td>
-                                            <!-- Transaction Type -->
-                                            <td><?php echo htmlspecialchars($transaction['is_purchase']); ?></td>
-                                            <!-- Transaction Value -->
-                                            <td>$<?php echo htmlspecialchars($transaction['value']); ?></td>
-                                            <!-- Transaction Date -->
-                                            <td><?php echo htmlspecialchars($transaction['date']); ?></td>
+                                            <th scope="row"><?php echo $transaction['id']; ?></th>
+                                            <td><?php echo $transaction['title']; ?></td>
+                                            <td><?php echo $transaction['is_purchase'] ? "Purchase" : "Refund"; ?></td>
+                                            <td>$<?php echo $transaction['value']; ?></td>
+                                            <td><?php echo $transaction['date']; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
