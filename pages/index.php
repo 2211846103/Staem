@@ -70,10 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $topGame = $games[0];
 
                 echo '
-                <div id="hero" class="card rounded-0 border-bottom h-75" onclick="viewDetails('. $topGame["id"] .')">
+                <div id="hero" class="card rounded-0 border-bottom h-75 overflow-hidden" onclick="viewDetails('. $topGame["id"] .')">
                     <img class="object-fit-cover h-100" src="'. $topGame["hero"] .'" style="filter: blur(5px);">
                     <div class="card-img-overlay d-flex flex-column justify-content-end">
-                        <h5 class="card-title text-primary display-4">'. $topGame["title"] .'</h5>
+                        <h5 class="card-title text-black display-4">'. $topGame["title"] .'</h5>
                         <p class="card-text fs-5">'. $topGame["description"] .'</p>
                     </div>
                 </div>
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 foreach ($games as $game) {
                                     $cartButton = "";
-                                    if (CartService::isAdded($game["id"])) $cartButton = "hidden";
+                                    if (CartService::isAdded($game["id"]) != PurchaseState::AVAILABLE) $cartButton = "hidden";
                                     
                                     echo '
                                     <div class="col h-100">

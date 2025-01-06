@@ -7,6 +7,12 @@ enum TransactionType {
     case REFUND;
 }
 
+enum PurchaseState {
+    case AVAILABLE;
+    case IN_CART;
+    case OWNED;
+}
+
 class CartService {
     public static function getCartGames() {
         $dba = new DatabaseAccess();
@@ -57,7 +63,14 @@ class CartService {
         );
 
         $dba->close();
-        return count($cartResult) > 0 || count($libraryResult) > 0;
+        if (count($cartResult) > 0) {
+            return PurchaseState::IN_CART;
+        }
+        if (count($libraryResult) > 0) {
+            return PurchaseState::OWNED;
+        }
+
+        return PurchaseState::AVAILABLE;
     }
     public static function removeFromCart($gameId) {
         $dba = new DatabaseAccess();
@@ -100,7 +113,7 @@ class CartService {
 
         $dba->preUpdate(
             "DELETE FROM library_items
-                WHERE user_id=?, game_id=?",
+                WHERE user_id=? AND game_id=?",
             "ii",
             $_SESSION["user_id"], $gameId
         );

@@ -6,15 +6,18 @@ class GameService {
         $dba = new DatabaseAccess();
 
         $result = $dba->preQuery(
-            "SELECT games.*, users.username
+            "SELECT games.*, users.username, AVG(reviews.rating) AS rating
                 FROM games LEFT JOIN users
                 ON games.publisher_id=users.id
+                LEFT JOIN reviews
+                ON games.id=reviews.game_id
                 WHERE games.id=?",
             "i",
             $gameId
         )[0];
 
-        $result["screenshots"] = GameService::getScreenshotsURLByGameId($result["id"]);
+        $result["screenshots"] = GameService::getScreenshotsURLByGameId($gameId);
+        $result["genres"] = GameService::getGameGenres($gameId);
         
         $dba->close();
         return $result;
@@ -171,10 +174,23 @@ class GameService {
 
         $urls = [];
         foreach ($files as $file) {
-            $screenshot = basename($file);
+            $screenshot = $dir . basename($file);
             array_push($urls, $screenshot);
         }
 
         return $urls;
+    }
+    private static function getGameGenres($gameId) {
+        $dba = new DatabaseAccess();
+
+        $result = $dba->preQuery(
+            "SELECT name FROM genres
+                WHERE game_id=?",
+            "i",
+            $gameId
+        );
+
+        $dba->close();
+        return $result;
     }
 }

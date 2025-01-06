@@ -1,0 +1,8 @@
+.screenshot-item img {
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.screenshot-item img:hover {
+    transform: scale(1.1);
+}

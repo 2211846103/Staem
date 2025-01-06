@@ -2,27 +2,13 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . "/server/database_access.php");
 
 class ReviewService {
-    public static function getRatingByGameId($gameId) {
-        $dba = new DatabaseAccess();
-
-        $result = $dba->preQuery(
-            "SELECT AVG(rating)
-                FROM reviews
-                WHERE game_id=?",
-                "i",
-                $gameId
-        );
-
-        $dba->close();
-        return $result[0]["AVG(rating)"];
-    }
     public static function getReviewsByGameId($gameId) {
         $dba = new DatabaseAccess();
 
         $result = $dba->preQuery(
             "SELECT reviews.*, users.username
-                FROM reviews LEFT JOIN users
-                ON reviews.user_id=users.id
+                FROM reviews INNER JOIN users
+                ON reviews.author_id=users.id
                 WHERE reviews.game_id=?",
             "i",
             $gameId
