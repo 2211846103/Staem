@@ -27,7 +27,7 @@
     background: linear-gradient(to var(--dir), var(--fill) 0 var(--x), var(--fillbg) 0 var(--x));
     block-size: 100%;
     mask: repeat-x left center/var(--starsize) var(--star);
-    -webkit-mask: repeat left center/var(--starsize) var(--star);
+    -webkit-mask: repeat-x left center/var(--starsize) var(--star);
   }
   .rating::-moz-range-thumb {
     height: var(--starsize);

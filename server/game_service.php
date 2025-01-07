@@ -153,7 +153,7 @@ class GameService {
         $dir = '../data/'. $gameId .'/';
 
         $files = glob($dir."cover.*");
-        if (empty($files)) return null;
+        if (empty($files)) return '../data/images.png';
 
         $cover = basename($files[0]);
         return $dir.$cover;
@@ -162,7 +162,7 @@ class GameService {
         $dir = '../data/'. $gameId .'/';
 
         $files = glob($dir."hero.*");
-        if (empty($files)) return null;
+        if (empty($files)) return '../data/images.png';
 
         $hero = basename($files[0]);
         return $dir.$hero;
@@ -171,7 +171,7 @@ class GameService {
         $dir = '../data/'. $gameId .'/screenshots/';
 
         $files = glob($dir."*");
-        if (empty($files)) return null;
+        if (empty($files)) return ['../data/images.png'];
 
         $urls = [];
         foreach ($files as $file) {

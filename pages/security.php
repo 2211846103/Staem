@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </head>
     <body>
         <!--Main Container-->
-        <div class="container-fluid vh-100 d-flex flex-column" style="margin: 0; padding: 0;">
+        <div class="container-fluid vh-100 d-flex flex-column overflow-hidden" style="margin: 0; padding: 0;">
             <!--Navigation Bar (Remove if Unnecessary)-->
             <nav class="navbar navbar-expand bg-body-secondary">
                 <div class="container-fluid px-5">

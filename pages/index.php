@@ -65,7 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </nav>
 
             <!-- Main Content -->
+             
             <main class="vh-100">
+            <?php if(!empty($games)): ?>
                 <?php
                 $topGame = $games[0];
 
@@ -95,7 +97,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <p class="h1 fw-bolder text-primary text-start">Most Popular Games</p>
                         <div class="row h-75 row-cols-2 row-cols-lg-4">
                             <?php
-
                                 foreach ($games as $game) {
                                     $cartButton = "";
                                     if (CartService::isAdded($game["id"]) != PurchaseState::AVAILABLE) $cartButton = "hidden";
@@ -119,6 +120,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                 </section>
+            <?php else: ?>
+                <h3 class="h-100 w-100 d-flex justify-content-center align-items-center">Our Catalog lacks Games Currently!</h3>
+            <?php endif ?>
             </main>
 
         </div>

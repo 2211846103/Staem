@@ -120,7 +120,7 @@ if (isset($_GET["action"])) {
                 </p>
                 <div class="d-flex align-items-center h-75 mx-5 p-4">
                     <img id="mainImage" src="<?php echo $game["screenshots"][0] ?>" class="border object-fit-cover rounded h-100 w-75">
-                    <div class="card border-0 mh-100 w-25 ms-2 overflow-scroll">
+                    <div class="card border-0 mh-100 w-25 ms-2 overflow-y-auto overflow-x-hidden">
                       <ul class="mh-100 d-flex flex-column justify-content-center align-items-center px-3">
                         <?php
                         foreach ($game["screenshots"] as $screenshot) {

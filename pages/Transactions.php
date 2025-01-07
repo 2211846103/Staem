@@ -30,7 +30,7 @@ $transactions = CartService::getUserTransactions();
 </head>
 <body>
     <!-- Main Container -->
-    <div class="container-fluid vh-100 d-flex flex-column" style="margin: 0; padding: 0;">
+    <div class="container-fluid vh-100 d-flex flex-column overflow-x-hidden overflow-y-auto" style="margin: 0; padding: 0;">
         <!-- Navigation Bar -->
         <nav class="navbar navbar-expand bg-body-secondary">
             <div class="container-fluid px-5">

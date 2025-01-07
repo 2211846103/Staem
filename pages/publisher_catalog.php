@@ -55,11 +55,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!--Main Section-->
             <main class="d-flex h-100 '.$overflow.'">
                 <section class="w-25 h-100 d-flex flex-column container w-25 border-end border-3 p-0">
-                  <h3 class="display-6 p-3 bg-primary text-black">My Catalog</h3>
+                  <h3 class="display-6 p-3 mb-0 bg-primary text-black">My Catalog</h3>
                   <div class="list-group list-group-flush h-100 overflow-y-auto overflow-x-hidden">
                     <?php 
                     foreach ($games as $game) {
-                      echo '<button class="list-group-item list-group-item-action" onclick="viewDetails('. $game["id"] .')">'.$game["title"].'</button>';
+                      echo '<button class="list-group-item list-group-item-action mt-0" onclick="viewDetails('. $game["id"] .')">'.$game["title"].'</button>';
                     }
 
                     if (empty($games)) echo '<h6 class="m-4   text-body-secondary">Contact Us to Fill Your Catalog!</h6>';
