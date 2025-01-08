@@ -141,6 +141,7 @@ function fillReviews(reviews) {
 function viewAddGame(event) {
     event.stopPropagation();
 
+    
     let html = `
     <div class="container mt-5 mb-5 pb-5">
         <h1 class="mb-4">Add a New Game</h1>
