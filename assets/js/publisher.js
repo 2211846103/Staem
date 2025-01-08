@@ -137,3 +137,97 @@ function fillReviews(reviews) {
 
     $("#reviews").html(html);
 }
+
+function viewAddGame(event) {
+    event.stopPropagation();
+
+    let html = `
+    <div class="container mt-5 mb-5 pb-5">
+        <h1 class="mb-4">Add a New Game</h1>
+        <form>
+        <!-- Title -->
+        <div class="mb-3 w-50">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Enter game title" required>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="4" placeholder="Enter game description" required></textarea>
+        </div>
+
+        <!-- Gameplay Description -->
+        <div class="mb-3">
+            <label for="gameplayDesc" class="form-label">Gameplay Description</label>
+            <textarea class="form-control" id="gameplayDesc" rows="6" placeholder="Enter gameplay description" required></textarea>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3 w-25">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" placeholder="Enter game price" step="0.01" required>
+        </div>
+
+        <!-- Genres -->
+        <div class="mb-3 w-100">
+            <label class="form-label">Genres</label>
+            <div class="d-flex">
+                <select class="form-select w-25 me-3" required>
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="RPG">RPG</option>
+                    <option value="Shooter">Shooter</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Simulation">Simulation</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Platformer">Platformer</option>
+                    <option value="Fighting">Fighting</option>
+                    <option value="Battle Royale">Battle Royale</option>
+                </select>
+                <select class="form-select w-25" required>
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="RPG">RPG</option>
+                    <option value="Shooter">Shooter</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Simulation">Simulation</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Platformer">Platformer</option>
+                    <option value="Fighting">Fighting</option>
+                    <option value="Battle Royale">Battle Royale</option>
+                </select>
+                <div class="ms-3">
+                    <button id="add-genre" type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+            <small class="form-text text-muted">Hold Ctrl (Windows) or Command (Mac) to select multiple genres.</small>
+        </div>
+
+        <!-- Cover Image -->
+        <div class="mb-3">
+            <label for="coverImage" class="form-label">Cover Image</label>
+            <input type="file" class="form-control" id="coverImage" accept="image/*" required>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="mb-3">
+            <label for="heroImage" class="form-label">Hero Image</label>
+            <input type="file" class="form-control" id="heroImage" accept="image/*" required>
+        </div>
+
+        <!-- Screenshots -->
+        <div class="mb-3">
+            <label for="screenshots" class="form-label">Screenshots</label>
+            <input type="file" class="form-control" id="screenshots" accept="image/*" multiple required>
+            <small class="form-text text-muted">You can upload multiple screenshots.</small>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Add Game</button>
+        </form>
+    </div>
+    `;
+
+    $("#details").html(html);
+}

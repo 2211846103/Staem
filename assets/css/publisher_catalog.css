@@ -5,3 +5,27 @@
 #game-statistics-container {
     height: 65%;
 }
+
+#add-game {
+    transition: all 0.5s ease;
+}
+
+#add-game:hover {
+    transform: scale(1.1);
+}
+
+.game-select {
+    cursor: pointer;
+}
+
+input[type=number] {
+    /*for absolutely positioning spinners*/
+    position: relative; 
+    padding: 5px;
+    padding-right: 25px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}

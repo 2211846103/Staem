@@ -54,12 +54,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <!--Main Section-->
             <main class="d-flex h-100 '.$overflow.'">
+                <button id="add-game" onclick="viewAddGame(event)" class="position-absolute btn btn-primary btn-lg bottom-0 m-3"><i class="fa-solid fa-plus"></i></button>
                 <section class="w-25 h-100 d-flex flex-column container w-25 border-end border-3 p-0">
                   <h3 class="display-6 p-3 mb-0 bg-primary text-black">My Catalog</h3>
                   <div class="list-group list-group-flush h-100 overflow-y-auto overflow-x-hidden">
                     <?php 
                     foreach ($games as $game) {
-                      echo '<button class="list-group-item list-group-item-action mt-0" onclick="viewDetails('. $game["id"] .')">'.$game["title"].'</button>';
+                      echo '
+                      <div class="game-select list-group-item list-group-item-action mt-0 d-flex justify-content-between align-items-center" onclick="viewDetails('. $game["id"] .')">
+                        '.$game["title"].'
+                        <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                      </div>';
                     }
 
                     if (empty($games)) echo '<h6 class="m-4   text-body-secondary">Contact Us to Fill Your Catalog!</h6>';
