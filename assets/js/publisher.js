@@ -138,97 +138,144 @@ function fillReviews(reviews) {
     $("#reviews").html(html);
 }
 
+function createElement(tag) {
+    return $(document.createElement(tag));
+}
+
 function viewAddGame(event) {
     event.stopPropagation();
 
-    
-    let html = `
-    <div class="container mt-5 mb-5 pb-5">
-        <h1 class="mb-4">Add a New Game</h1>
-        <form>
-        <!-- Title -->
-        <div class="mb-3 w-50">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Enter game title" required>
-        </div>
+    let title = createElement("div").addClass("mb-3 w-50");
+    title.append('<label for="title" class="form-label">Title:</label>');
+    title.append('<input type="text" class="form-control" id="title" placeholder="Enter game title" required>');
 
-        <!-- Description -->
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" rows="4" placeholder="Enter game description" required></textarea>
-        </div>
+    let description = createElement("div").addClass("mb-3");
+    description.append('<label for="description" class="form-label">Description:</label>');
+    description.append('<textarea class="form-control" id="description" rows="4" placeholder="Enter game description" required></textarea>');
 
-        <!-- Gameplay Description -->
-        <div class="mb-3">
-            <label for="gameplayDesc" class="form-label">Gameplay Description</label>
-            <textarea class="form-control" id="gameplayDesc" rows="6" placeholder="Enter gameplay description" required></textarea>
-        </div>
+    let gameplayDesc = createElement("div").addClass("mb-3");
+    gameplayDesc.append('<label for="gameplay-desc" class="form-label">Gameplay Description:</label>');
+    gameplayDesc.append('<textarea class="form-control" id="gameplay-desc" rows="4" placeholder="Enter gameplay description" required></textarea>');
 
-        <!-- Price -->
-        <div class="mb-3 w-25">
-            <label for="price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="price" placeholder="Enter game price" step="0.01" required>
+    let price = createElement("div").addClass("mb-3 w-25");
+    price.append('<label for="price" class="form-label">Price:</label>');
+    price.append(`
+        <div class="d-flex align-items-center w-100">
+            <div class="h4 me-2 mt-1">$</div>
+            <input type="number" class="form-control" id="price" placeholder="Enter Price" required>
         </div>
+    `);
 
-        <!-- Genres -->
-        <div class="mb-3 w-100">
-            <label class="form-label">Genres</label>
-            <div class="d-flex">
-                <select class="form-select w-25 me-3" required>
-                    <option value="Action">Action</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="RPG">RPG</option>
-                    <option value="Shooter">Shooter</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Simulation">Simulation</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Platformer">Platformer</option>
-                    <option value="Fighting">Fighting</option>
-                    <option value="Battle Royale">Battle Royale</option>
-                </select>
-                <select class="form-select w-25" required>
-                    <option value="Action">Action</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="RPG">RPG</option>
-                    <option value="Shooter">Shooter</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Simulation">Simulation</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Platformer">Platformer</option>
-                    <option value="Fighting">Fighting</option>
-                    <option value="Battle Royale">Battle Royale</option>
-                </select>
-                <div class="ms-3">
-                    <button id="add-genre" type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
-                </div>
+    let genres = createElement("div").addClass("mb-3");
+    genres.append(`
+        <label id="genres" class="form-label">Genres: </label>
+        <div class="d-flex">
+            <select id="genre-select" class="form-select w-25 me-3">
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <option value="RPG">RPG</option>
+                <option value="Shooter">Shooter</option>
+                <option value="Sports">Sports</option>
+                <option value="Simulation">Simulation</option>
+                <option value="Horror">Horror</option>
+                <option value="Survival">Survival</option>
+                <option value="Platformer">Platformer</option>
+                <option value="Open World">Open World</option>
+                <option value="Battle Royale">Battle Royale</option>
+                <option value="Fighting">Fighting</option>
+                <option value="Racing">Racing</option>
+                <option value="MMORPG">MMORPG</option>
+                <option value="Party">Party</option>
+            </select>
+            <div class="ms-3">
+                <button id="add-genre" type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
             </div>
-            <small class="form-text text-muted">Hold Ctrl (Windows) or Command (Mac) to select multiple genres.</small>
         </div>
+        <div id="error" class="text-danger d-none">Please Choose a Genre</div>
+        <small>Choose a Genre then Hit (+) (Max 3)</small>
+    `);
+    let selectedGenres = new Set();
+    genres.find("button").click(function (e) {
+        let value = genres.find("select").val();
+        if (selectedGenres.size >= 3) return;
+        if (selectedGenres.has(value)) return;
+        selectedGenres.add(value);
+        genres.find("#genres").append(value + ", ");
+    });
 
-        <!-- Cover Image -->
-        <div class="mb-3">
-            <label for="coverImage" class="form-label">Cover Image</label>
-            <input type="file" class="form-control" id="coverImage" accept="image/*" required>
-        </div>
+    let coverField = createElement("div").addClass("mb-3 w-50");
+    coverField.append('<label for="coverImage" class="form-label">Cover Image</label>');
+    coverField.append('<input type="file" class="form-control" id="coverImage" accept="image/*" required>');
 
-        <!-- Hero Image -->
-        <div class="mb-3">
-            <label for="heroImage" class="form-label">Hero Image</label>
-            <input type="file" class="form-control" id="heroImage" accept="image/*" required>
-        </div>
+    let heroField = createElement("div").addClass("mb-3 w-50");
+    heroField.append('<label for="heroImage" class="form-label">Hero Image</label>');
+    heroField.append('<input type="file" class="form-control" id="heroImage" accept="image/*" required>');
 
-        <!-- Screenshots -->
-        <div class="mb-3">
-            <label for="screenshots" class="form-label">Screenshots</label>
-            <input type="file" class="form-control" id="screenshots" accept="image/*" multiple required>
-            <small class="form-text text-muted">You can upload multiple screenshots.</small>
-        </div>
+    let screenshotsField = createElement("div").addClass("mb-3 w-50");
+    screenshotsField.append('<label for="screenshots" class="form-label">Screenshots</label>');
+    screenshotsField.append('<input type="file" class="form-control" id="screenshots" accept="image/*" multiple required>');
 
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Add Game</button>
-        </form>
-    </div>
-    `;
+    let form = createElement("form").attr("enctype", "multipart/form-data");
+    form.append(
+        title, description, gameplayDesc, price,
+        genres, coverField, heroField, screenshotsField
+    );
+    form.append('<button type="submit" class="btn btn-primary">Add Game</button>');
 
-    $("#details").html(html);
+    form.submit(function (e) {
+        e.preventDefault();
+
+        selectedGenresArr = Array.from(selectedGenres);
+        if (selectedGenresArr.length == 0) {
+            $("#genre-select").addClass("border-danger");
+            $("#error").removeClass("d-none");
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append("action", "add-game");
+        formData.append("title", $("#title").val());
+        formData.append("desc", $("#description").val());
+        formData.append("gameDesc", $("#gameplay-desc").val());
+        formData.append("price", $("#price").val());
+        formData.append("genres", JSON.stringify(selectedGenresArr));
+        formData.append("cover", $("#coverImage")[0].files[0]);
+        formData.append("hero", $("#heroImage")[0].files[0]);
+        let files = $("#screenshots").prop('files');
+        for (let i = 0; i < files.length; i++) {
+            formData.append("screenshot[]", files[i]);
+        }
+
+        $.ajax("publisher_catalog.php", {
+            method: "post",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                window.location.reload();
+            }
+        });
+    });
+
+    let container = createElement("div").addClass("container my-5 pb-5");
+    container.append('<h1 class="mb-4">Add a New Game</h1>');
+    container.append(form);
+
+    $("#details").html(container);
 }
+
+$(".delete-btn").click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    $.ajax("publisher_catalog.php", {
+        method: "post",
+        data: {
+            action: "delete-game",
+            id: $(this).val()
+        },
+        success: function (response) {
+            window.location.reload();
+        }
+    });
+});

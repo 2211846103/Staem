@@ -21,6 +21,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo json_encode($info);
     return;
   }
+  if ($_POST["action"] == "add-game") {
+    $details = [
+      "title" => $_POST["title"],
+      "desc" => $_POST["desc"],
+      "gameDesc" => $_POST["gameDesc"],
+      "price" => $_POST["price"],
+      "genres" => json_decode($_POST["genres"])
+    ];
+
+    GameService::addGame($details);
+    return;
+  }
+  if ($_POST["action"] == "delete-game") {
+    GameService::deleteGame($_POST["id"]);
+    return;
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -63,11 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       echo '
                       <div class="game-select list-group-item list-group-item-action mt-0 d-flex justify-content-between align-items-center" onclick="viewDetails('. $game["id"] .')">
                         '.$game["title"].'
-                        <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                        <button class="delete-btn btn btn-danger btn-sm" value="'. $game["id"] .'"><i class="fa-solid fa-trash"></i></button>
                       </div>';
                     }
 
-                    if (empty($games)) echo '<h6 class="m-4   text-body-secondary">Contact Us to Fill Your Catalog!</h6>';
+                    if (empty($games)) echo '<h6 class="m-4   text-body-secondary">Click Below to Add a Game to Your Catalog!</h6>';
                     ?>
                   </div>
                 </section>

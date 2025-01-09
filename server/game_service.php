@@ -2,6 +2,46 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . "/server/database_access.php");
 
 class GameService {
+    public static function addGame($details) {
+        $dba = new DatabaseAccess();
+
+        $dba->preUpdate(
+            "INSERT INTO games
+                (title, description, price, publisher_id, gameplay_desc)
+                VALUES (?, ?, ?, ?, ?)",
+            "ssdis",
+            $details["title"], $details["desc"], $details["price"], $_SESSION["user_id"], $details["gameDesc"]
+        );
+
+        $id = $dba->query(
+            "SELECT LAST_INSERT_ID() FROM games"
+        )[0]["LAST_INSERT_ID()"];
+
+        foreach ($details["genres"] as $genre) {
+            $dba->preUpdate(
+                "INSERT INTO genres
+                    (name, game_id)
+                    VALUES (?, ?)",
+                "si",
+                $genre, $id  
+            );
+        }
+
+        GameService::uploadImages($id);
+
+        $dba->close();
+    }
+    public static function deleteGame($gameId) {
+        $dba = new DatabaseAccess();
+
+        $dba->preUpdate(
+            "DELETE FROM games WHERE id=?",
+            "i",
+            $gameId
+        );
+
+        $dba->close();
+    }
     public static function getGameDetails($gameId) {
         $dba = new DatabaseAccess();
 
@@ -193,5 +233,37 @@ class GameService {
 
         $dba->close();
         return $result;
+    }
+    public static function uploadImages($gameId) {
+        $imageDir = "../data/".$gameId."/";
+        $screenshotDir = $imageDir . "screenshots";
+
+        if (!file_exists($screenshotDir)) {
+            mkdir($screenshotDir,0777, true);
+        }
+
+        GameService::uploadCover($imageDir);
+        GameService::uploadHero($imageDir);
+        GameService::uploadScreenshots($screenshotDir);
+    }
+    public static function uploadCover($imageDir) {
+        $cover = $imageDir . "cover." . pathinfo($_FILES["cover"]["name"])["extension"];
+        move_uploaded_file($_FILES["cover"]["tmp_name"], $cover);
+    }
+    public static function uploadHero($imageDir) {
+        $hero = $imageDir . "hero." . pathinfo($_FILES["cover"]["name"])["extension"];
+        move_uploaded_file($_FILES["hero"]["tmp_name"], $hero);
+    }
+    public static function uploadScreenshots($screenshotDir) {
+        $tempName = $_FILES["screenshot"]["tmp_name"];
+        $targetFiles = [];
+        for ($i = 0; $i < count($_FILES["screenshot"]["name"]); $i++) {
+            $target = $screenshotDir . "/" . $i . "." . pathinfo($_FILES["screenshot"]["name"][0])["extension"];
+            array_push($targetFiles, $target);
+        }
+
+        foreach (array_combine($targetFiles, $tempName) as $target => $tmp) {
+            move_uploaded_file($tmp, $target);
+        }
     }
 }
