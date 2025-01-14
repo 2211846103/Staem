@@ -10,8 +10,8 @@ if (!UserService::isLoggedIn()) {
 }
 
 $games = GameService::getGamesbypublisher();
-$selected = false;
 
+// ignore
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($_POST["action"] == "retrieve-info") {
     $info = [];
@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     return;
   }
 }
+// ignore
 ?>
 <!DOCTYPE html>
 
@@ -89,11 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </section>
 
                 <section id="details" class="w-75 h-100 overflow-y-auto overflow-x-hidden">
-                  <?php
-                  if (!$selected) echo '
-                    <h5 class="h-75 w-100 d-flex justify-content-center align-items-center">Select a Game to View!</h5>
-                  ';
-                  ?>
+                  <h5 class="h-75 w-100 d-flex justify-content-center align-items-center">Select a Game to View!</h5>
                 </section>
             </main>
         </div>

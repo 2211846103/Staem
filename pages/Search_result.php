@@ -21,7 +21,8 @@ foreach ([$descs, $genres, $titles] as $queryResult) {
   }
 }
 
-if (isset($_GET["action"])) {
+// ignore
+if (isset($_GET["action"]) && $_GET["action"] == "retrieve") {
   echo json_encode($list);
   return;
 }
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       return;
   }
 }
-
+// ignore
 ?>
 
 <!DOCTYPE html>

@@ -5,12 +5,14 @@ class UserService {
     public static function register($details) {
         $success = true;
         $dba = new DatabaseAccess();
+
+        $hashedPassword = password_hash($details["password"], PASSWORD_DEFAULT);
         
         try {
             $dba->preUpdate(
                 "INSERT INTO users (username, email, password, is_publisher) VALUES (?, ?, ?, ?)",
                 "sssi",
-                $details["username"], $details["email"], $details["password"], intval(false)
+                $details["username"], $details["email"], $hashedPassword, intval(false)
             );
         } catch (Exception $e) {
             $success = false;
@@ -23,12 +25,13 @@ class UserService {
         $dba = new DatabaseAccess();
 
         $result = $dba->preQuery(
-            "SELECT id, is_publisher FROM users WHERE username=? AND password=?",
+            "SELECT id, password, is_publisher FROM users WHERE username=?",
             "ss",
-            $credentials["username"], $credentials["password"]
+            $credentials["username"]
         );
 
         if (count($result) == 0) return false;
+        if (!password_verify($credentials["password"], $result["password"])) return false;
 
         session_start();
         $_SESSION["user_id"] = $result[0]["id"];
@@ -66,10 +69,20 @@ class UserService {
     public static function changePassword($passwordInfo) {
         $dba = new DatabaseAccess();
 
+        $oldPass = $dba->preQuery(
+            "SELECT password FROM users WHERE id=?",
+            "i",
+            $_SESSION["user_id"]
+        )[0]["password"];
+
+        if (!password_verify($passwordInfo["currentPass"], $oldPass)) return false;
+
+        $newPass = password_hash($passwordInfo["newPass"], PASSWORD_DEFAULT);
+
         $results = $dba->preUpdate(
-            "UPDATE users SET password=? WHERE id=? AND password=?",
+            "UPDATE users SET password=? WHERE id=?",
             "sis",
-            $passwordInfo["newPass"], $_SESSION["user_id"], $passwordInfo["currentPass"]
+            $newPass, $_SESSION["user_id"]
         );
 
         $dba->close();
@@ -78,5 +91,6 @@ class UserService {
     public static function logout() {
         session_start();
         $_SESSION["is_logged_in"] = false;
+        session_destroy();
     }
 }

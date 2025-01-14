@@ -10,11 +10,13 @@ if (!UserService::isLoggedIn()) {
 
 $games = GameService::getTopGames();
 
+// ignore
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["action"] == "add_to_cart") {
         CartService::addToCart($_POST["id"]);
     }
 }
+//ignore
 ?>
 
 <!DOCTYPE html>

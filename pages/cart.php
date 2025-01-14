@@ -7,6 +7,7 @@ if (!UserService::isLoggedIn()) {
     return;
 }
 
+// ignore
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST["action"] == "get_games") {
         echo json_encode(CartService::getCartGames());
@@ -25,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return;
     }
 }
+// ignore
 ?>
 
 <!DOCTYPE html>

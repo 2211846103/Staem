@@ -6,6 +6,7 @@ if (!UserService:: isloggedIn()){
    return;
 }
 
+// ignore
 $success = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $success = UserService:: changePassword([
@@ -13,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     'currentPass' => $_POST["currentPass"]
   ]);
 }
-
+// ignore
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h1 class="text-center mb-4">Change Password</h1>
                     <form class="w-50" id="passwordForm" action="security.php" method="post">
                       <p class="text-danger" id="error">
-                        <?php if (!$success) echo 'Current Password is Incorrect'?>
+                        <?php
+                        // ignore
+                        if (!$success) echo 'Current Password is Incorrect'
+                        // ignore
+                        ?>
                       </p>
                       <div class="mb-3">
                           <label for="currentPassword" class="form-label">Current Password</label>
