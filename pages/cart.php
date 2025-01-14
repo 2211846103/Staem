@@ -7,26 +7,28 @@ if (!UserService::isLoggedIn()) {
     return;
 }
 
-// ignore
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // first with js
     if ($_POST["action"] == "get_games") {
         echo json_encode(CartService::getCartGames());
         return;
     }
+    // second with js
     if ($_POST["action"] == "remove-from-cart") {
         CartService::removeFromCart($_POST["id"]);
         return;
     }
+    // third with js
     if ($_POST["action"] == "cancel-order") {
         CartService::cancelOrder();
         return;
     }
+    // forth with js
     if ($_POST["action"] == "checkout") {
         CartService::checkout();
         return;
     }
 }
-// ignore
 ?>
 
 <!DOCTYPE html>

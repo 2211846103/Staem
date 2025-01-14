@@ -9,18 +9,18 @@ if (!UserService::isLoggedIn()) {
   return;
 }
 
-// ignore
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // second with js
   if ($_POST["action"] == "add_to_cart") {
     CartService::addToCart($_POST["id"]);
     return;
   }
+  // third with js
   if ($_POST["action"] == "refund") {
     CartService::refundGame($_POST["id"]);
     return;
   }
 }
-// ignore
 
 if (!isset($_GET["id"])) {
   header ("Location: index.php");
@@ -29,8 +29,8 @@ if (!isset($_GET["id"])) {
 
 $game = GameService::getGameDetails($_GET["id"]);
 
-// ignore
 if (isset($_GET["action"])) {
+  // forth
   if ($_GET["action"] == "add-review") {
     $body = $_GET["body"] == "" ? NULL : $_GET["body"];
     $rating = $_GET["rating"] == -1 ? NULL : $_GET["rating"];
@@ -47,7 +47,6 @@ if (isset($_GET["action"])) {
     }
   }
 }
-// ignore
 ?>
 
 <!DOCTYPE html>

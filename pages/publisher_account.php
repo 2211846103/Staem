@@ -6,14 +6,13 @@ if (!UserService::isLoggedIn()) {
   return;
 }
 
-// ignore
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // first
   UserService:: updateInfo([
     'username'=> $_POST["username"],
     'email'=> $_POST["email"]
   ]);
 }
-// ignore
 ?>
 
 <!DOCTYPE html>

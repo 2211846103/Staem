@@ -11,8 +11,8 @@ if (!UserService::isLoggedIn()) {
 
 $games = GameService::getGamesbypublisher();
 
-// ignore
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // first with js
   if ($_POST["action"] == "retrieve-info") {
     $info = [];
     $info["details"] = GameService::getGameDetails($_POST["id"]);
@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo json_encode($info);
     return;
   }
+  // second with js
   if ($_POST["action"] == "add-game") {
     $details = [
       "title" => $_POST["title"],
@@ -33,12 +34,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     GameService::addGame($details);
     return;
   }
+  // third with js
   if ($_POST["action"] == "delete-game") {
     GameService::deleteGame($_POST["id"]);
     return;
   }
 }
-// ignore
 ?>
 <!DOCTYPE html>
 

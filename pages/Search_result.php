@@ -21,19 +21,20 @@ foreach ([$descs, $genres, $titles] as $queryResult) {
   }
 }
 
-// ignore
+
+// second
 if (isset($_GET["action"]) && $_GET["action"] == "retrieve") {
   echo json_encode($list);
   return;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // first
   if ($_POST["action"] == "add-to-cart") {
       CartService::addToCart($_POST["id"]);
       return;
   }
 }
-// ignore
 ?>
 
 <!DOCTYPE html>
